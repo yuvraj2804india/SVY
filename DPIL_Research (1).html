@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPIL Research — Smart Money Circle</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A1628;
+  --navy2: #0F2040;
+  --teal: #0D9A70;
+  --teal-light: #E0F5EE;
+  --teal-dim: #0A7A57;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+  --red: #B91C1C;
+  --red-light: #FEE2E2;
+  --blue: #1D4ED8;
+  --blue-light: #EFF6FF;
+  --cable-bg: #EFF6FF;
+  --cable-text: #1D3A7A;
+  --cond-bg: #E0F5EE;
+  --cond-text: #0A5C40;
+  --multi-bg: #FEF3C7;
+  --multi-text: #78400A;
+  --ink: #111827;
+  --ink2: #374151;
+  --ink3: #6B7280;
+  --surface: #F9FAFB;
+  --border: #E5E7EB;
+  --white: #FFFFFF;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  padding: 80px 40px 60px;
+  background: var(--navy);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(13,154,112,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(29,78,216,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+.hero-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.12em; color: var(--teal);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.hero-label::before {
+  content: ''; width: 24px; height: 1px; background: var(--teal);
+}
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+h1 em { font-style: italic; color: var(--teal); }
+.hero-sub {
+  font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 40px;
+  font-family: 'DM Mono', monospace;
+}
+
+/* KPI STRIP */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.kpi {
+  padding: 20px 24px;
+  background: rgba(255,255,255,0.03);
+  transition: background 0.2s;
+}
+.kpi:hover { background: rgba(13,154,112,0.08); }
+.kpi-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px; color: var(--teal);
+  line-height: 1;
+}
+.kpi-lbl { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 6px; font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+
+/* ── TABS ── */
+.tab-bar {
+  background: var(--navy2);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: sticky; top: 0; z-index: 100;
+}
+.tab-bar-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; gap: 0; overflow-x: auto;
+}
+.tab {
+  padding: 14px 24px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.4);
+  border-bottom: 2px solid transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+  background: none; border-top: none; border-left: none; border-right: none;
+  font-family: 'Syne', sans-serif;
+}
+.tab:hover { color: rgba(255,255,255,0.7); }
+.tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+/* ── MAIN CONTENT ── */
+.main { background: var(--surface); color: var(--ink); }
+.section { display: none; max-width: 1100px; margin: 0 auto; padding: 48px 40px; }
+.section.active { display: block; }
+
+/* ── ORDER TABLE ── */
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px; color: var(--navy); margin-bottom: 6px;
+}
+.section-sub { font-size: 13px; color: var(--ink3); margin-bottom: 32px; font-family: 'DM Mono', monospace; }
+
+.order-table { width: 100%; border-collapse: collapse; }
+.order-table th {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: 'DM Mono', monospace;
+  padding: 10px 14px; text-align: left;
+  font-weight: 500;
+}
+.order-table th:nth-child(5) { text-align: right; }
+.order-table td {
+  padding: 13px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.order-table tr:hover td { background: rgba(13,154,112,0.04); }
+.order-table tr:last-child td { border-bottom: none; }
+
+.tag {
+  display: inline-block;
+  font-size: 10px; font-weight: 700; font-family: 'DM Mono', monospace;
+  padding: 3px 8px; border-radius: 4px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.tag-cable { background: var(--cable-bg); color: var(--cable-text); }
+.tag-conductor { background: var(--cond-bg); color: var(--cond-text); }
+.tag-multi { background: var(--multi-bg); color: var(--multi-text); }
+.tag-mega { background: var(--navy); color: var(--teal); margin-left: 4px; }
+
+.amount { font-family: 'DM Mono', monospace; font-weight: 500; font-size: 13px; }
+.amount.big { color: var(--teal-dim); font-size: 14px; font-weight: 700; }
+
+.client-name { font-weight: 700; color: var(--navy); font-size: 13px; }
+.scope-text { color: var(--ink2); font-size: 12px; margin-top: 3px; }
+
+.month-sep td {
+  background: var(--navy);
+  color: var(--teal);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; font-family: 'DM Mono', monospace;
+  padding: 8px 14px;
+}
+
+.total-row td {
+  background: var(--navy);
+  color: white;
+  font-weight: 700; font-family: 'DM Mono', monospace;
+  font-size: 14px; padding: 14px;
+}
+
+/* ── FINANCIALS ── */
+.fin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+@media(max-width:700px) { .fin-grid { grid-template-columns: 1fr; } }
+
+.fin-card {
+  background: white; border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.fin-card-title {
+  padding: 14px 18px;
+  background: var(--navy);
+  color: white; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: 'DM Mono', monospace;
+}
+.fin-table { width: 100%; border-collapse: collapse; }
+.fin-table th {
+  padding: 8px 14px; font-size: 10px;
+  background: #F3F4F6;
+  color: var(--ink3); font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em; text-align: right; font-weight: 500;
+}
+.fin-table th:first-child { text-align: left; }
+.fin-table td { padding: 9px 14px; font-size: 12px; text-align: right; border-bottom: 1px solid #F3F4F6; color: var(--ink); font-family: 'DM Mono', monospace; }
+.fin-table td:first-child { text-align: left; font-family: 'Syne', sans-serif; color: var(--ink2); }
+.fin-table tr:last-child td { border-bottom: none; }
+.fin-table tr.highlight td { background: var(--cond-bg); font-weight: 700; color: var(--navy); }
+.fin-table tr.section-row td { background: var(--navy); color: var(--teal); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'DM Mono', monospace; text-align: left; padding: 8px 14px; }
+.fin-table .neg { color: var(--red); }
+.fin-table .pos { color: var(--teal-dim); }
+
+.market-banner {
+  background: var(--navy); color: white;
+  padding: 16px 24px; border-radius: 12px;
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  display: flex; gap: 32px; flex-wrap: wrap; align-items: center;
+  margin-top: 24px;
+}
+.mkt-item { display: flex; flex-direction: column; gap: 3px; }
+.mkt-val { font-size: 18px; font-weight: 700; color: var(--teal); }
+.mkt-lbl { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; }
+
+/* ── COMPANY PROFILE ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media(max-width:700px){ .about-grid { grid-template-columns: 1fr; } }
+
+.about-card {
+  background: white; border-radius: 12px;
+  border: 1px solid var(--border); padding: 24px;
+}
+.about-card h3 {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: 'DM Mono', monospace;
+  color: var(--teal-dim); margin-bottom: 16px;
+}
+.about-row { display: flex; gap: 12px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.about-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.about-key { font-size: 11px; color: var(--ink3); min-width: 130px; font-family: 'DM Mono', monospace; padding-top: 1px; }
+.about-val { font-size: 13px; color: var(--ink); line-height: 1.5; }
+
+.full-card { grid-column: 1 / -1; }
+
+/* PROS CONS */
+.pc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+@media(max-width:700px){ .pc-grid { grid-template-columns: 1fr; } }
+
+.pc-col-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; margin-bottom: 16px;
+}
+.pc-col-title.pro { color: var(--teal-dim); }
+.pc-col-title.con { color: var(--red); }
+
+.pc-item {
+  border-radius: 10px; padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.pc-item.pro { background: var(--cond-bg); border-left: 3px solid var(--teal); }
+.pc-item.con { background: var(--red-light); border-left: 3px solid var(--red); }
+.pc-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; font-family: 'DM Mono', monospace;
+  margin-bottom: 5px;
+}
+.pc-item.pro .pc-title { color: var(--teal-dim); }
+.pc-item.con .pc-title { color: var(--red); }
+.pc-desc { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+
+.verdict {
+  grid-column: 1 / -1;
+  background: var(--navy); color: white;
+  border-radius: 12px; padding: 28px 32px;
+  margin-top: 8px;
+}
+.verdict-label {
+  font-family: 'DM Mono', monospace; font-size: 10px;
+  color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.verdict-text {
+  font-family: 'DM Serif Display', serif; font-size: 18px;
+  line-height: 1.6; color: rgba(255,255,255,0.85);
+}
+
+/* QUARTERLY TREND CHART */
+.chart-wrap {
+  background: white; border-radius: 12px;
+  border: 1px solid var(--border); padding: 24px;
+  margin-bottom: 24px;
+}
+.chart-wrap h3 {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; font-family: 'DM Mono', monospace;
+  color: var(--ink3); margin-bottom: 20px;
+}
+.bar-group { display: flex; align-items: flex-end; gap: 3px; height: 140px; }
+.bar-wrap { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; }
+.bar {
+  width: 100%; border-radius: 4px 4px 0 0;
+  transition: opacity 0.2s;
+  min-height: 4px;
+  position: relative;
+}
+.bar:hover::after {
+  content: attr(data-val);
+  position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+  background: var(--navy); color: white;
+  font-size: 10px; font-family: 'DM Mono', monospace;
+  padding: 2px 6px; border-radius: 3px; white-space: nowrap;
+  pointer-events: none;
+}
+.bar.revenue { background: var(--blue); opacity: 0.8; }
+.bar.pat { background: var(--teal); }
+.bar-lbl { font-size: 9px; color: var(--ink3); font-family: 'DM Mono', monospace; margin-top: 5px; text-align: center; }
+.chart-legend { display: flex; gap: 16px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--ink3); font-family: 'DM Mono', monospace; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .hero { padding: 48px 20px 40px; }
+  .section { padding: 32px 16px; }
+  .tab { padding: 12px 14px; font-size: 11px; }
+  .order-table th, .order-table td { padding: 8px 8px; }
+}
+
+/* ── SMC BRAND BAR ── */
+.smc-bar {
+  background: var(--navy2);
+  border-bottom: 1px solid rgba(13,154,112,0.2);
+  padding: 10px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.smc-logo {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.smc-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, #0D9A70, #0A6B4E);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.smc-icon svg { width: 18px; height: 18px; }
+.smc-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 800; color: white; letter-spacing: 0.01em;
+}
+.smc-name span { color: var(--teal); }
+.smc-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.smc-research-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--teal);
+  border: 1px solid rgba(13,154,112,0.35);
+  padding: 4px 10px; border-radius: 20px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ── DISCLAIMER ── */
+.disclaimer-section {
+  background: #050E1C;
+  border-top: 1px solid rgba(13,154,112,0.15);
+  padding: 40px 40px 32px;
+}
+.disclaimer-inner { max-width: 1100px; margin: 0 auto; }
+.disclaimer-top {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+}
+.disc-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(217,119,6,0.15);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 16px;
+}
+.disc-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 700;
+  color: var(--amber); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.disc-body {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; line-height: 1.9;
+  color: rgba(255,255,255,0.38);
+  border-left: 2px solid rgba(217,119,6,0.3);
+  padding-left: 18px; margin-bottom: 24px;
+}
+.disc-body p { margin-bottom: 10px; }
+.disc-body p:last-child { margin-bottom: 0; }
+.disc-body strong { color: rgba(255,255,255,0.55); font-weight: 500; }
+.disc-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.disc-brand { display: flex; align-items: center; gap: 8px; }
+.disc-brand-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.4);
+}
+.disc-brand-name span { color: rgba(13,154,112,0.6); }
+.disc-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: rgba(255,255,255,0.2);
+  letter-spacing: 0.05em;
+}
+@media(max-width:600px){
+  .smc-bar { padding: 10px 16px; }
+  .smc-tagline { display: none; }
+  .disclaimer-section { padding: 28px 16px 24px; }
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section.active > * { animation: fadeUp 0.35s ease both; }
+.section.active > *:nth-child(2) { animation-delay: 0.05s; }
+.section.active > *:nth-child(3) { animation-delay: 0.1s; }
+.section.active > *:nth-child(4) { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+
+<!-- SMC BRAND BAR -->
+<div class="smc-bar">
+  <div class="smc-logo">
+    <div class="smc-icon">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="7.5" stroke="white" stroke-width="1.5" fill="none"/>
+        <path d="M6.5 10.5C6.5 10.5 7.5 13 10 13C12.5 13 13.5 10.5 13.5 10.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="7.5" cy="8" r="1" fill="white"/>
+        <circle cx="12.5" cy="8" r="1" fill="white"/>
+        <path d="M10 3.5V2M10 18v-1.5M3.5 10H2M18 10h-1.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+    </div>
+    <div>
+      <div class="smc-name">Smart <span>Money</span> Circle</div>
+      <div class="smc-tagline">Independent Equity Research · India</div>
+    </div>
+  </div>
+  <div class="smc-research-badge">Research Report</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Smart Money Circle · Equity Research · India T&D</div>
+    <h1>Diamond Power<br><em>Infrastructure</em> Ltd</h1>
+    <div class="hero-sub">NSE: DIACABS &nbsp;|&nbsp; BSE: 522163 &nbsp;|&nbsp; Market Cap: ₹7,338 Cr &nbsp;|&nbsp; Compiled: March 2026</div>
+    <div class="kpi-strip">
+      <div class="kpi"><div class="kpi-val">₹3,200+ Cr</div><div class="kpi-lbl">Orders (Oct'24–Mar'26)</div></div>
+      <div class="kpi"><div class="kpi-val">₹2,800 Cr</div><div class="kpi-lbl">Order Book (post Jul'25)</div></div>
+      <div class="kpi"><div class="kpi-val">+692%</div><div class="kpi-lbl">PAT Growth Q3 FY26 YoY</div></div>
+      <div class="kpi"><div class="kpi-val">₹1,349 Cr</div><div class="kpi-lbl">Largest Single Order (Adani)</div></div>
+      <div class="kpi"><div class="kpi-val">14.6%</div><div class="kpi-lbl">EBITDA Margin Q3 FY26</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <div class="tab-bar-inner">
+    <button class="tab active" onclick="switchTab('orders', this)">Order Tracker</button>
+    <button class="tab" onclick="switchTab('financials', this)">Financials</button>
+    <button class="tab" onclick="switchTab('profile', this)">Company Profile</button>
+    <button class="tab" onclick="switchTab('proscons', this)">Pros & Cons</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="main">
+
+  <!-- ── ORDER TRACKER ── -->
+  <div id="orders" class="section active">
+    <div class="section-title">Order Tracker</div>
+    <div class="section-sub">All significant order wins · Oct 2024 – Mar 2026 · Source: BSE Filings</div>
+
+    <div style="overflow-x:auto;">
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Client</th>
+          <th>Type</th>
+          <th>Scope</th>
+          <th style="text-align:right">Value (₹ Cr)</th>
+          <th>Timeline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="month-sep"><td colspan="7">▸ March 2026</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">01</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">12 Mar 2026</td>
+          <td><div class="client-name">Tata Power Renewable Energy Ltd</div><div class="scope-text">869 km ECO AL-59 Zebra conductors — Tamil Nadu, Maharashtra, Karnataka</div></td>
+          <td><span class="tag tag-conductor">Conductor</span></td>
+          <td style="font-size:12px;color:#6B7280">Renewable energy evacuation lines</td>
+          <td style="text-align:right"><span class="amount">31.51</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">Within 4 months</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ February 2026</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">02</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">26 Feb 2026</td>
+          <td><div class="client-name">KPI Green Energy Ltd</div><div class="scope-text">Power cables supply — EPC contractor</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Km-rate with PV formula</td>
+          <td style="text-align:right"><span class="amount">93.08</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">By 30 Jun 2026</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ January 2026</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">03</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">05 Jan 2026</td>
+          <td><div class="client-name">Larsen & Toubro Construction</div><div class="scope-text">Power cable supply — domestic order</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Supply to L&T construction project</td>
+          <td style="text-align:right"><span class="amount">72.51</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">Jan–Sep 2026</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">04</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">Jan 2026</td>
+          <td><div class="client-name">Bondada Engineering</div><div class="scope-text">Power cables supply</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Domestic supply order</td>
+          <td style="text-align:right"><span class="amount">55.54</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">Jan–Jul 2026</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">05</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">Jan 2026</td>
+          <td><div class="client-name">Enrich Energy Pvt Ltd</div><div class="scope-text">Power cables supply</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Domestic order</td>
+          <td style="text-align:right"><span class="amount">52.50</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">By May 2026</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ December 2025</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">06</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">05 Dec 2025</td>
+          <td><div class="client-name">Adani Green Energy Ltd</div><div class="scope-text">2,126 km 33KV HV + 3,539 km 3.3KV solar MV cables — Khavda (GJ) & Rajasthan</div></td>
+          <td><span class="tag tag-cable">Cable</span><span class="tag tag-mega">MEGA</span></td>
+          <td style="font-size:12px;color:#6B7280">Largest cable order; km-rate with PV formula</td>
+          <td style="text-align:right"><span class="amount big">747.64</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">Jan–Dec 2026</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">07</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">29 Dec 2025</td>
+          <td><div class="client-name">Hild Projects</div><div class="scope-text">Power cable supply</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Domestic order</td>
+          <td style="text-align:right"><span class="amount">66.18</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">Jan–Jun 2026</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ September 2025</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">08</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">14 Sep 2025</td>
+          <td><div class="client-name">Adani Energy Solutions Ltd</div><div class="scope-text">5,403 km AL-59 Zebra conductors — Jamnagar project</div></td>
+          <td><span class="tag tag-conductor">Conductor</span></td>
+          <td style="font-size:12px;color:#6B7280">Km-rate with PV formula; by Jun 2026</td>
+          <td style="text-align:right"><span class="amount big">236.71</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">By 30 Jun 2026</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ July 2025</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">09</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">28 Jul 2025</td>
+          <td><div class="client-name">Adani Energy Solutions Ltd</div><div class="scope-text">Conductor supply — largest single order in DPIL history. Pushed order book to ₹2,800 Cr.</div></td>
+          <td><span class="tag tag-conductor">Conductor</span><span class="tag tag-mega">MEGA</span></td>
+          <td style="font-size:12px;color:#6B7280">Km-rate with PV formula</td>
+          <td style="text-align:right"><span class="amount big" style="font-size:16px;color:#0A7A57">1,349.11</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">By Jun 2028</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ June 2025</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">10</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">13 Jun 2025</td>
+          <td><div class="client-name">Multiple Clients</div><div class="scope-text">BESS + smart metering + highway infra projects</div></td>
+          <td><span class="tag tag-multi">Multi</span></td>
+          <td style="font-size:12px;color:#6B7280">Order book at ₹1,554 Cr post announcement</td>
+          <td style="text-align:right"><span class="amount">116.71</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">Various</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ April–May 2025</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">11</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">29 Apr 2025</td>
+          <td><div class="client-name">Rajesh Power Services (DGVCL)</div><div class="scope-text">HT power cables — Gujarat Vij distribution project</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Gujarat distribution network</td>
+          <td style="text-align:right"><span class="amount">150.99</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">FY26</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">12</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">Apr 2025</td>
+          <td><div class="client-name">Adani Electricity Mumbai Ltd</div><div class="scope-text">HT power cables — Mumbai distribution business</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Adani Mumbai distribution network</td>
+          <td style="text-align:right"><span class="amount">79.28</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">FY26</td>
+        </tr>
+        <tr class="month-sep"><td colspan="7">▸ March 2025</td></tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">13</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">Mar 2025</td>
+          <td><div class="client-name">Adani Green Energy Ltd</div><div class="scope-text">7,668 km AL-59 Zebra conductors — Khavda renewable park, Gujarat</div></td>
+          <td><span class="tag tag-conductor">Conductor</span></td>
+          <td style="font-size:12px;color:#6B7280">Completion by Nov 2026; km-rate PV formula</td>
+          <td style="text-align:right"><span class="amount big">276.06</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">By Nov 2026</td>
+        </tr>
+        <tr>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF">14</td>
+          <td style="font-family:'DM Mono',monospace;font-size:11px;">24 Mar 2025</td>
+          <td><div class="client-name">Adani Green Energy Ltd</div><div class="scope-text">360 km 33kV HT + 451 km 3.3kV LT + 643 km 33kV HT (wind) = 1,454 km total — Khavda, Gujarat</div></td>
+          <td><span class="tag tag-cable">Cable</span></td>
+          <td style="font-size:12px;color:#6B7280">Multiple voltage levels; Khavda mega solar site</td>
+          <td style="text-align:right"><span class="amount big">214.65</span></td>
+          <td style="font-size:11px;font-family:'DM Mono',monospace">By Jan 2026</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="5" style="text-align:right;letter-spacing:0.05em">TOTAL (14 orders)</td>
+          <td style="text-align:right;font-size:16px;color:#0D9A70">3,542.96</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ── FINANCIALS ── -->
+  <div id="financials" class="section">
+    <div class="section-title">Financial Summary</div>
+    <div class="section-sub">Consolidated figures · ₹ Crores · FY = April–March · Source: Screener.in / BSE</div>
+
+    <!-- Revenue/PAT Bar Chart -->
+    <div class="chart-wrap">
+      <h3>Quarterly Revenue & PAT Trend (₹ Crores)</h3>
+      <div style="display:flex;gap:2px;align-items:flex-end;height:160px;">
+        <!-- Q3FY24: Rev 60, PAT -5 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:13%" data-val="₹60 Cr"></div>
+          <div class="bar-lbl">Q3<br>FY24</div>
+        </div>
+        <!-- Q4FY24: Rev 134, PAT 14 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:28%" data-val="₹134 Cr"></div>
+          <div class="bar-lbl">Q4<br>FY24</div>
+        </div>
+        <!-- Q1FY25: Rev 224, PAT 17 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:47%" data-val="₹224 Cr"></div>
+          <div class="bar-lbl">Q1<br>FY25</div>
+        </div>
+        <!-- Q2FY25: Rev 250, PAT 4 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:53%" data-val="₹250 Cr"></div>
+          <div class="bar-lbl">Q2<br>FY25</div>
+        </div>
+        <!-- Q3FY25: Rev 307, PAT 6 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:65%" data-val="₹307 Cr"></div>
+          <div class="bar-lbl">Q3<br>FY25</div>
+        </div>
+        <!-- Q4FY25: Rev 334, PAT 8 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:70%" data-val="₹334 Cr"></div>
+          <div class="bar-lbl">Q4<br>FY25</div>
+        </div>
+        <!-- Q1FY26: Rev 302, PAT 20 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:64%" data-val="₹302 Cr"></div>
+          <div class="bar-lbl">Q1<br>FY26</div>
+        </div>
+        <!-- Q2FY26: Rev 438, PAT 28 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:92%" data-val="₹438 Cr"></div>
+          <div class="bar-lbl">Q2<br>FY26</div>
+        </div>
+        <!-- Q3FY26: Rev 474, PAT 50 -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div class="bar revenue" style="height:100%;background:linear-gradient(180deg,#0D9A70,#1D4ED8)" data-val="₹474 Cr"></div>
+          <div class="bar-lbl" style="font-weight:700;color:#0D9A70">Q3<br>FY26</div>
+        </div>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Revenue</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Highest quarter highlighted</div>
+      </div>
+    </div>
+
+    <div class="fin-grid">
+      <!-- P&L Annual -->
+      <div class="fin-card">
+        <div class="fin-card-title">Annual P&L (₹ Cr)</div>
+        <table class="fin-table">
+          <thead><tr><th>Metric</th><th>FY2024</th><th>FY2025</th><th>TTM Dec'25</th></tr></thead>
+          <tbody>
+            <tr><td>Revenue</td><td>343</td><td>1,115</td><td class="pos">1,548</td></tr>
+            <tr><td>Operating Expenses</td><td>301</td><td>1,049</td><td>1,388</td></tr>
+            <tr class="highlight"><td>EBITDA</td><td>43</td><td>67</td><td>160</td></tr>
+            <tr><td>EBITDA Margin %</td><td>12.5%</td><td>6.0%</td><td class="pos">10.3%</td></tr>
+            <tr><td>Interest</td><td>7</td><td>13</td><td>25</td></tr>
+            <tr><td>Depreciation</td><td>20</td><td>20</td><td>28</td></tr>
+            <tr class="highlight"><td>PBT</td><td>17</td><td>34</td><td>107</td></tr>
+            <tr class="highlight"><td>PAT (Net Profit)</td><td>17</td><td>34</td><td class="pos">105</td></tr>
+            <tr><td>PAT Margin %</td><td>5.0%</td><td>3.0%</td><td class="pos">6.8%</td></tr>
+            <tr><td>EPS (₹)</td><td>0.32</td><td>0.65</td><td class="pos">2.00</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Quarterly -->
+      <div class="fin-card">
+        <div class="fin-card-title">Quarterly Snapshot (₹ Cr)</div>
+        <table class="fin-table">
+          <thead><tr><th>Metric</th><th>Q3 FY25</th><th>Q1 FY26</th><th>Q2 FY26</th><th>Q3 FY26</th></tr></thead>
+          <tbody>
+            <tr><td>Revenue</td><td>307</td><td>302</td><td>438</td><td class="pos">474</td></tr>
+            <tr class="highlight"><td>EBITDA</td><td>16</td><td>31</td><td>46</td><td class="pos">69</td></tr>
+            <tr><td>EBITDA %</td><td>5.2%</td><td>10.3%</td><td>10.5%</td><td class="pos">14.6%</td></tr>
+            <tr class="highlight"><td>PAT</td><td>6</td><td>20</td><td>28</td><td class="pos">50</td></tr>
+            <tr><td>PAT YoY</td><td>—</td><td>—</td><td>+600%</td><td class="pos">+692%</td></tr>
+            <tr><td>EPS (₹)</td><td>0.12</td><td>0.38</td><td>0.53</td><td class="pos">0.94</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Balance Sheet -->
+      <div class="fin-card">
+        <div class="fin-card-title">Balance Sheet Snapshot (₹ Cr)</div>
+        <table class="fin-table">
+          <thead><tr><th>Metric</th><th>Mar 2024</th><th>Mar 2025</th><th>Sep 2025</th></tr></thead>
+          <tbody>
+            <tr><td>Equity Capital</td><td>53</td><td>53</td><td>53</td></tr>
+            <tr><td>Reserves</td><td class="neg">(1,026)</td><td class="neg">(931)</td><td class="neg">(767)</td></tr>
+            <tr><td>Borrowings</td><td>456</td><td>463</td><td>610</td></tr>
+            <tr><td>Net Worth</td><td class="neg">(973)</td><td class="neg">(878)</td><td class="neg">(714)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Growth CAGRs -->
+      <div class="fin-card">
+        <div class="fin-card-title">Growth Metrics</div>
+        <table class="fin-table">
+          <thead><tr><th>Metric</th><th>10Y CAGR</th><th>5Y CAGR</th><th>1Y / TTM</th></tr></thead>
+          <tbody>
+            <tr><td>Revenue CAGR</td><td class="neg">−9%</td><td>n/a*</td><td class="pos">+69%</td></tr>
+            <tr><td>PAT CAGR</td><td>+8%</td><td>n/a*</td><td class="pos">+170%</td></tr>
+            <tr><td>Stock Price CAGR</td><td class="pos">+49%</td><td class="pos">+342%</td><td class="pos">+47%</td></tr>
+          </tbody>
+        </table>
+        <div style="padding:10px 14px;font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace">*5Y/3Y CAGR not meaningful — company was in NCLT/dormancy during FY18–FY23</div>
+      </div>
+    </div>
+
+    <div class="market-banner">
+      <div class="mkt-item"><div class="mkt-val">₹139</div><div class="mkt-lbl">CMP (Mar 2026)</div></div>
+      <div class="mkt-item"><div class="mkt-val">₹7,338 Cr</div><div class="mkt-lbl">Market Cap</div></div>
+      <div class="mkt-item"><div class="mkt-val">69.7x</div><div class="mkt-lbl">Trailing P/E</div></div>
+      <div class="mkt-item"><div class="mkt-val">₹185 / ₹85.6</div><div class="mkt-lbl">52W High / Low</div></div>
+      <div class="mkt-item"><div class="mkt-val">84.0%</div><div class="mkt-lbl">Promoter Holding</div></div>
+      <div class="mkt-item"><div class="mkt-val">0.00%</div><div class="mkt-lbl">Dividend Yield</div></div>
+    </div>
+  </div>
+
+  <!-- ── COMPANY PROFILE ── -->
+  <div id="profile" class="section">
+    <div class="section-title">Company Profile</div>
+    <div class="section-sub">What DPIL does, who it serves, and why it matters</div>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Identity</h3>
+        <div class="about-row"><div class="about-key">Full Name</div><div class="about-val">Diamond Power Infrastructure Limited (DPIL)</div></div>
+        <div class="about-row"><div class="about-key">Ticker</div><div class="about-val">DIACABS · BSE 522163 · NSE DIACABS</div></div>
+        <div class="about-row"><div class="about-key">Headquarters</div><div class="about-val">Vadodara, Gujarat, India</div></div>
+        <div class="about-row"><div class="about-key">Sector</div><div class="about-val">Capital Goods → Electrical Equipment → T&D Products</div></div>
+        <div class="about-row"><div class="about-key">Founded</div><div class="about-val">1970s (as DIACONS); restarted post-NCLT resolution ~FY2022-23</div></div>
+      </div>
+
+      <div class="about-card">
+        <h3>Products</h3>
+        <div class="about-row"><div class="about-key">Conductors</div><div class="about-val">AL-59 / ACSR / AAAC / Zebra / ECO-type aluminium conductors for HV transmission lines</div></div>
+        <div class="about-row"><div class="about-key">Cables</div><div class="about-val">33kV & 11kV HT power cables; 3.3kV LT cables for solar/wind farms and distribution</div></div>
+        <div class="about-row"><div class="about-key">Other</div><div class="about-val">Transmission towers, earthwire, EPC (historical), smart metering & BESS (emerging)</div></div>
+        <div class="about-row"><div class="about-key">Brand</div><div class="about-val">DIACABS — present across 16 Indian states</div></div>
+      </div>
+
+      <div class="about-card full-card">
+        <h3>Key Clients & Macro Context</h3>
+        <div class="about-row"><div class="about-key">Top Clients</div><div class="about-val">Adani Green Energy, Adani Energy Solutions, Adani Electricity Mumbai, Tata Power Renewables, L&T Construction, KPI Green Energy, DGVCL, Bondada Engineering</div></div>
+        <div class="about-row"><div class="about-key">Manufacturing</div><div class="about-val">Single integrated plant in Vadodara, Gujarat. Full value-chain from wire-rod to finished cables and conductors.</div></div>
+        <div class="about-row"><div class="about-key">Macro Tailwinds</div><div class="about-val">India's 500 GW renewable target by 2030; Khavda Renewable Energy Park (world's largest planned at 30GW+); PM Surya Ghar & RDSS grid modernisation schemes; massive T&D capex by Adani, Tata, and state discoms</div></div>
+        <div class="about-row"><div class="about-key">Turnaround Story</div><div class="about-val">DPIL had catastrophic losses in FY15-17 (total ₹1,262 Cr over 3 years), went into NCLT insolvency. New management post-resolution cleared ₹3,000+ Cr of legacy debt, restarted production by FY23. FY24 was the first full normalised year.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROS & CONS ── -->
+  <div id="proscons" class="section">
+    <div class="section-title">Investment Analysis</div>
+    <div class="section-sub">Strengths & risks for potential investors · Not financial advice</div>
+
+    <div class="pc-grid">
+      <div>
+        <div class="pc-col-title pro">✦ Strengths</div>
+        <div class="pc-item pro"><div class="pc-title">Order Book Surge</div><div class="pc-desc">Order book grew ~5.6x to ₹2,800+ Cr in 2 years. Strong revenue visibility well into FY28.</div></div>
+        <div class="pc-item pro"><div class="pc-title">Explosive Revenue Growth</div><div class="pc-desc">Revenue: ₹343 Cr (FY24) → ₹1,115 Cr (FY25) → ₹1,548 Cr (TTM). TTM growth of +69% YoY.</div></div>
+        <div class="pc-item pro"><div class="pc-title">Margin Recovery</div><div class="pc-desc">EBITDA margins recovering from 5-6% in FY25 to 10-15% in H2 FY26. Q3 FY26 hit 14.6% — nearing historical norms of 12-14%.</div></div>
+        <div class="pc-item pro"><div class="pc-title">PAT Explosion</div><div class="pc-desc">PAT grew +692% YoY in Q3 FY26. TTM PAT of ₹105 Cr vs ₹17 Cr in FY24 — a 6x improvement in 2 years.</div></div>
+        <div class="pc-item pro"><div class="pc-title">Working Capital Efficiency</div><div class="pc-desc">Working capital cycle compressed from 34.5 days to just 10 days — outstanding cash efficiency for a manufacturing business.</div></div>
+        <div class="pc-item pro"><div class="pc-title">Adani Relationship</div><div class="pc-desc">Deep ties with Adani Green, Adani Energy Solutions, and Adani Electricity Mumbai. Adani's ₹3 lakh crore+ RE capex pipeline provides captive demand for years.</div></div>
+        <div class="pc-item pro"><div class="pc-title">Diversification Emerging</div><div class="pc-desc">Winning orders from Tata Power, L&T, KPI Green signals broadening client base — reduces single-group concentration going forward.</div></div>
+        <div class="pc-item pro"><div class="pc-title">Promoter Confidence</div><div class="pc-desc">84% promoter holding is a strong signal. Low float also means the story is tightly held by insiders who clearly believe in the trajectory.</div></div>
+        <div class="pc-item pro"><div class="pc-title">Clean Post-NCLT Balance Sheet (relatively)</div><div class="pc-desc">Debt at ₹610 Cr is manageable vs TTM revenue of ₹1,548 Cr. Legacy ₹3,000+ Cr debt was wiped during insolvency resolution — a clean slate for growth.</div></div>
+      </div>
+      <div>
+        <div class="pc-col-title con">✗ Risks</div>
+        <div class="pc-item con"><div class="pc-title">Negative Net Worth</div><div class="pc-desc">Reserves at −₹767 Cr (Sep'25). Book value per share is −₹13.6. Technically balance-sheet insolvent — a structural legacy of the NCLT era.</div></div>
+        <div class="pc-item con"><div class="pc-title">Heavy Client Concentration</div><div class="pc-desc">Adani group likely accounts for 65-70%+ of the order book. Any Adani capex slowdown, financing constraint, or regulatory issue could be existential for DPIL.</div></div>
+        <div class="pc-item con"><div class="pc-title">Rich Valuation</div><div class="pc-desc">P/E of 69.7x on TTM PAT of ₹105 Cr. ₹7,338 Cr market cap prices in significant multi-year growth perfectly — any miss will hurt badly.</div></div>
+        <div class="pc-item con"><div class="pc-title">Thin Margins Historically</div><div class="pc-desc">FY25 EBITDA was only 6%. In FY15-17, DPIL posted ₹1,262 Cr in cumulative net losses. Margin sustainability at ₹2,000-3,000 Cr scale is still unproven.</div></div>
+        <div class="pc-item con"><div class="pc-title">Rising Debt</div><div class="pc-desc">Debt climbed from ₹456 Cr (FY24) to ₹610 Cr (Sep'25) to fund working capital for large orders. If cash conversion slips, leverage could become a risk.</div></div>
+        <div class="pc-item con"><div class="pc-title">Execution Risk on Mega Orders</div><div class="pc-desc">The ₹1,349 Cr Adani order runs to Jun 2028. Commodity price swings (aluminium), logistics, and production capacity are all live execution risks.</div></div>
+        <div class="pc-item con"><div class="pc-title">Short Post-Turnaround Track Record</div><div class="pc-desc">Only 2-3 years of post-NCLT operating history. Impressive ramp, but long-term execution at scale — and through a full business cycle — is unverified.</div></div>
+        <div class="pc-item con"><div class="pc-title">Zero Dividends</div><div class="pc-desc">No dividend since the crisis years. Pure growth/turnaround thesis — not an income play. Capital appreciation is the only return driver.</div></div>
+        <div class="pc-item con"><div class="pc-title">Stock Already Re-Rated Significantly</div><div class="pc-desc">5Y stock CAGR of +342%. Much of the easy re-rating from distressed to normalised may already be done. Future returns depend entirely on continued execution and margin expansion.</div></div>
+      </div>
+
+      <div class="verdict">
+        <div class="verdict-label">Bottom Line</div>
+        <div class="verdict-text">DPIL is a high-risk, high-reward turnaround play riding India's T&D infrastructure supercycle. The order book de-risks near-term revenue, and the Adani relationship is a powerful growth engine. But negative net worth, 70% client concentration, and a 69x P/E mean the stock offers little margin of safety — it is a story priced for perfection. Best suited for investors who can hold through volatility and have conviction in both India's renewable buildout and DPIL's execution capability.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="disclaimer-section">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-top">
+      <div class="disc-icon">⚠</div>
+      <div class="disc-title">Important Disclaimer</div>
+    </div>
+    <div class="disc-body">
+      <p><strong>Not Financial Advice.</strong> This report is published by Smart Money Circle strictly for educational and informational purposes only. Nothing contained herein constitutes investment advice, a solicitation, or a recommendation to buy, sell, or hold any security. Smart Money Circle is not a SEBI-registered investment adviser, portfolio manager, or research analyst.</p>
+      <p><strong>No Guarantee of Accuracy.</strong> All data, figures, and order values presented in this report have been compiled from publicly available sources including BSE/NSE filings, company announcements, and third-party financial data providers (Screener.in). While every effort has been made to ensure accuracy, Smart Money Circle makes no representations or warranties — express or implied — regarding the completeness, correctness, or timeliness of any information herein. Data may have changed since the compilation date of March 2026.</p>
+      <p><strong>Investing Involves Risk.</strong> Equity investments are subject to market risks. Past performance of a stock is not indicative of future results. The value of investments may go up or down, and investors may lose all or part of their invested capital. Small-cap and micro-cap stocks like DIACABS carry significantly higher volatility and liquidity risks compared to large-cap securities.</p>
+      <p><strong>No Conflict of Interest Disclosure.</strong> Smart Money Circle, its authors, contributors, and affiliates may or may not hold positions in the securities mentioned in this report. Readers should independently verify all information and consult a qualified, SEBI-registered financial adviser before making any investment decisions.</p>
+      <p><strong>Forward-Looking Statements.</strong> This report may contain forward-looking statements regarding the company's business, financials, or order pipeline. Such statements are based on current expectations and assumptions and are subject to risks and uncertainties. Actual results may differ materially from those anticipated.</p>
+    </div>
+    <div class="disc-footer">
+      <div class="disc-brand">
+        <div class="smc-icon" style="width:26px;height:26px;border-radius:6px;">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:13px;height:13px">
+            <circle cx="10" cy="10" r="7.5" stroke="white" stroke-width="1.5" fill="none"/>
+            <path d="M6.5 10.5C6.5 10.5 7.5 13 10 13C12.5 13 13.5 10.5 13.5 10.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="7.5" cy="8" r="1" fill="white"/><circle cx="12.5" cy="8" r="1" fill="white"/>
+          </svg>
+        </div>
+        <div class="disc-brand-name">Smart <span>Money</span> Circle</div>
+      </div>
+      <div class="disc-copy">© 2026 Smart Money Circle · All Rights Reserved · Compiled March 2026 · For Informational Use Only</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
