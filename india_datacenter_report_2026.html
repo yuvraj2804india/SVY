@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India Data Center Theme — Smart Money Circle | April 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0f1117; --ink-muted: #4a4d5a; --ink-faint: #9498a8;
+  --bg: #f7f6f2; --surface: #ffffff; --surface-alt: #f0ede6;
+  --accent: #1a3a5c; --accent-2: #c8401a; --accent-3: #1e7a52;
+  --gold: #b8860b; --border: #dedad2; --radius: 4px; --radius-lg: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.75; }
+
+.header { background: var(--accent); color: #fff; padding: 28px 40px 0; position: sticky; top: 0; z-index: 100; }
+.header-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; gap: 16px; flex-wrap: wrap; }
+.eyebrow { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+.eyebrow::before { content:''; display:block; width:20px; height:1px; background:rgba(255,255,255,0.35); }
+.header h1 { font-family: 'Playfair Display', serif; font-size: clamp(20px,3vw,32px); font-weight: 700; color: #fff; }
+.header-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+.hm .lbl { font-size: 9px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:2px; }
+.hm .val { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.88); }
+
+.tab-nav { display: flex; overflow-x: auto; scrollbar-width: none; border-top: 1px solid rgba(255,255,255,0.12); margin: 0 -40px; padding: 0 40px; }
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn { background: none; border: none; color: rgba(255,255,255,0.55); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 12px 15px 10px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.15s, border-color 0.15s; display: flex; align-items: center; gap: 5px; }
+.tab-btn:hover { color: rgba(255,255,255,0.85); }
+.tab-btn.active { color: #fff; border-bottom-color: #fff; }
+.tn { font-size: 10px; color: rgba(255,255,255,0.3); }
+.tab-btn.active .tn { color: rgba(255,255,255,0.55); }
+
+.tab-pane { display: none; max-width: 900px; margin: 0 auto; padding: 40px 32px 80px; }
+.tab-pane.active { display: block; }
+
+.sh { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; padding-bottom: 14px; border-bottom: 2px solid var(--accent); }
+.sn { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: var(--ink-faint); text-transform: uppercase; }
+.sh h2 { font-family: 'Playfair Display', serif; font-size: clamp(20px,3vw,27px); font-weight: 600; color: var(--accent); }
+
+p { margin-bottom: 14px; color: var(--ink-muted); }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--ink); font-weight: 600; }
+
+.sg { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.sc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 16px; }
+.sc .sl { font-size: 10.5px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+.sc .sv { font-family: 'Playfair Display', serif; font-size: 27px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+.sc .ss { font-size: 11.5px; color: var(--ink-muted); }
+.sc.co { border-left: 3px solid var(--accent-2); }
+.sc.cg { border-left: 3px solid var(--accent-3); }
+
+.wg { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+@media(max-width:640px){.wg{grid-template-columns:1fr;}}
+.wc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 20px 16px; }
+.wc.tail { border-top: 3px solid var(--accent-3); }
+.wc.head { border-top: 3px solid var(--accent-2); }
+.wct { font-size: 10.5px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+.tail .wct { color: var(--accent-3); }
+.head .wct { color: var(--accent-2); }
+.wi { display: flex; gap: 10px; margin-bottom: 13px; align-items: flex-start; }
+.wd { width: 6px; height: 6px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+.tail .wd { background: var(--accent-3); }
+.head .wd { background: var(--accent-2); }
+.wt { font-size: 13px; line-height: 1.55; color: var(--ink-muted); }
+.wt strong { font-size: 13px; }
+
+.pg { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.pc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; }
+.pc h4 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.pc p { font-size: 12.5px; line-height: 1.55; color: var(--ink-muted); margin: 0; }
+
+.badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; margin-bottom: 7px; }
+.bb { background:#dbeafe;color:#1e40af; } .bg { background:#dcfce7;color:#166534; } .ba { background:#fef3c7;color:#92400e; }
+.bp { background:#ede9fe;color:#5b21b6; } .bt { background:#ccfbf1;color:#134e4a; } .bgr { background:#f1f5f9;color:#475569; }
+
+.dt { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:24px; }
+.dt th { text-align:left; font-size:10px; letter-spacing:1.2px; text-transform:uppercase; font-weight:700; color:var(--ink-faint); padding:8px 12px; background:var(--surface-alt); border-bottom:1px solid var(--border); }
+.dt td { padding:10px 12px; border-bottom:1px solid var(--border); color:var(--ink-muted); vertical-align:top; }
+.dt td:first-child { font-weight:600; color:var(--ink); }
+.dt tr:last-child td { border-bottom:none; }
+.dt tbody tr:hover td { background:var(--surface-alt); }
+
+.polig { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin-bottom:24px; }
+.polic { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:18px; }
+.polic h4 { font-size:13.5px; font-weight:600; color:var(--accent); margin-bottom:7px; }
+.polic p { font-size:12.5px; color:var(--ink-muted); margin:0; line-height:1.5; }
+
+.ic { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; margin-bottom:14px; }
+.ich { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:8px; }
+.ic h4 { font-size:15px; font-weight:600; color:var(--ink); }
+.ticker { font-family:monospace; font-size:11px; font-weight:700; background:var(--accent); color:#fff; padding:2px 9px; border-radius:3px; letter-spacing:0.5px; }
+.ic p { font-size:13px; margin:0; color:var(--ink-muted); }
+.pcl { display:flex; gap:12px; margin-top:10px; font-size:12px; flex-wrap:wrap; }
+.pcl span { display:flex; align-items:flex-start; gap:4px; }
+.pro { color:var(--accent-3); } .con { color:var(--accent-2); }
+
+.ir { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px 18px; margin-bottom:12px; display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+.ir .in { font-weight:600; font-size:14px; min-width:120px; color:var(--ink); }
+.ir .id { font-size:12.5px; color:var(--ink-muted); flex:1; min-width:160px; }
+
+.rh { color:#991b1b; font-weight:700; } .rm { color:#92400e; font-weight:700; } .rl { color:#166534; font-weight:700; }
+
+.tg { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin-bottom:20px; }
+.tc { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; }
+.tc .ti { font-size:22px; margin-bottom:10px; }
+.tc h4 { font-size:13.5px; font-weight:600; margin-bottom:5px; color:var(--ink); }
+.tc p { font-size:12px; color:var(--ink-muted); margin:0; line-height:1.5; }
+
+.pq { border-left:3px solid var(--accent); padding:12px 20px; margin:20px 0; background:var(--surface); border-radius:0 var(--radius-lg) var(--radius-lg) 0; }
+.pq p { font-size:14px; font-style:italic; color:var(--ink-muted); margin:0; }
+.pq cite { display:block; font-size:11px; letter-spacing:0.5px; color:var(--ink-faint); margin-top:6px; font-style:normal; font-weight:600; text-transform:uppercase; }
+
+.cw { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px; margin-bottom:24px; }
+.cl { font-size:11px; letter-spacing:1px; text-transform:uppercase; font-weight:600; color:var(--ink-faint); margin-bottom:14px; }
+
+.subh { font-size:16px; font-weight:600; color:var(--ink); margin:28px 0 12px; padding-top:4px; border-top:1px solid var(--border); }
+
+.disc { background:var(--surface-alt); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 18px; font-size:11.5px; color:var(--ink-faint); line-height:1.6; margin-top:32px; }
+.disc strong { color:var(--ink-muted); }
+.info { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; font-size:12.5px; color:var(--ink-muted); margin-bottom:20px; display:flex; gap:8px; align-items:flex-start; }
+
+footer { background:var(--accent); color:rgba(255,255,255,0.55); text-align:center; padding:22px; font-size:12px; }
+footer strong { color:rgba(255,255,255,0.88); }
+
+/* SMC BRANDING */
+.smc-logo { display:flex; align-items:center; gap:10px; }
+.smc-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.smc-icon svg { width: 18px; height: 18px; }
+.smc-name { line-height: 1.15; }
+.smc-name .smc-main { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #fff; letter-spacing: 0.2px; }
+.smc-name .smc-sub { font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+.footer-logo { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px; }
+.footer-logo .smc-icon { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+.footer-logo .smc-main { color: rgba(255,255,255,0.9); font-size: 14px; }
+.footer-logo .smc-sub { color: rgba(255,255,255,0.38); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+      <div class="smc-logo">
+        <div class="smc-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.9)" stroke-width="1.5"/>
+            <path d="M8 14.5c0-1.5 1.2-2.5 2.5-2.5s2.5 1 4 1 2.5-1 2.5-2.5" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M12 7v2M9.5 8l1 1.5M14.5 8l-1 1.5" stroke="rgba(255,255,255,0.7)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="smc-name">
+          <div class="smc-main">Smart Money Circle</div>
+          <div class="smc-sub">Research &amp; Insights</div>
+        </div>
+      </div>
+      <div style="width:1px;height:40px;background:rgba(255,255,255,0.15);align-self:center;"></div>
+      <div>
+        <div class="eyebrow">Thematic Research Report</div>
+        <h1>India's Data Center Boom</h1>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="hm"><div class="lbl">Published</div><div class="val">April 2026</div></div>
+      <div class="hm"><div class="lbl">Capacity (2025)</div><div class="val">~1,520 MW</div></div>
+      <div class="hm"><div class="lbl">Target 2030</div><div class="val">6.5–9 GW</div></div>
+      <div class="hm"><div class="lbl">Capital Committed</div><div class="val">$95B+</div></div>
+    </div>
+  </div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="sw('overview',this)"><span class="tn">01</span>Overview</button>
+    <button class="tab-btn" onclick="sw('market',this)"><span class="tn">02</span>Market Size</button>
+    <button class="tab-btn" onclick="sw('tailwinds',this)"><span class="tn">03</span>Tailwinds</button>
+    <button class="tab-btn" onclick="sw('headwinds',this)"><span class="tn">04</span>Headwinds</button>
+    <button class="tab-btn" onclick="sw('geography',this)"><span class="tn">05</span>Geography</button>
+    <button class="tab-btn" onclick="sw('ecosystem',this)"><span class="tn">06</span>Ecosystem</button>
+    <button class="tab-btn" onclick="sw('players',this)"><span class="tn">07</span>Key Players</button>
+    <button class="tab-btn" onclick="sw('investments',this)"><span class="tn">08</span>Investments</button>
+    <button class="tab-btn" onclick="sw('trends',this)"><span class="tn">09</span>Trends</button>
+    <button class="tab-btn" onclick="sw('policy',this)"><span class="tn">10</span>Policy</button>
+    <button class="tab-btn" onclick="sw('stocks',this)"><span class="tn">11</span>Stock Plays</button>
+    <button class="tab-btn" onclick="sw('risk',this)"><span class="tn">12</span>Risk Matrix</button>
+  </nav>
+</div>
+
+<!-- 01 OVERVIEW -->
+<div class="tab-pane active" id="t-overview">
+  <div class="sh"><span class="sn">01</span><h2>Executive Overview</h2></div>
+  <div style="display:flex;justify-content:flex-end;margin-top:-18px;margin-bottom:20px;">
+    <span style="font-size:11px;color:var(--ink-faint);font-weight:500;display:flex;align-items:center;gap:6px;">
+      <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px;opacity:0.5;"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M8 14.5c0-1.5 1.2-2.5 2.5-2.5s2.5 1 4 1 2.5-1 2.5-2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 7v2M9.5 8l1 1.5M14.5 8l-1 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Prepared by Smart Money Circle
+    </span>
+  </div>
+  <div class="sg">
+    <div class="sc co"><div class="sl">Operational Capacity (end-2025)</div><div class="sv">1,520 MW</div><div class="ss">+387 MW added in 2025 alone; vs 191 MW in 2024</div></div>
+    <div class="sc"><div class="sl">Demand Absorption (2025)</div><div class="sv">427 MW</div><div class="ss">54% driven by cloud hyperscalers</div></div>
+    <div class="sc cg"><div class="sl">Under Construction</div><div class="sv">1.03 GW</div><div class="ss">+ 1.29 GW in advanced planning stage</div></div>
+    <div class="sc"><div class="sl">Committed Investments</div><div class="sv">$95B+</div><div class="ss">Cumulative 2019–2025; record pace</div></div>
+    <div class="sc"><div class="sl">Capacity Target (2030)</div><div class="sv">9 GW</div><div class="ss">6–9x growth from today's 1.52 GW</div></div>
+    <div class="sc"><div class="sl">Internet Users</div><div class="sv">900M+</div><div class="ss">32 GB/user/month — global leader in data consumption</div></div>
+  </div>
+  <p>India's data center market has entered what analysts describe as a structural inflection point — not a cyclical boom. Driven by data sovereignty mandates, the AI revolution demanding GPU-dense infrastructure, a digital economy touching 900 million internet users, and aggressive hyperscaler commitments exceeding $30 billion from Microsoft, Google, and Amazon alone, India is rapidly transitioning from a regional storage hub to a tier-1 global data center destination.</p>
+  <p>The 2025 calendar year was a watershed: 387 MW of new supply was more than double the 191 MW added in 2024, and absorption of 427 MW confirms that demand is outpacing supply. Construction pipelines now exceed 2.3 GW, while institutional capital — sovereign wealth funds, Carlyle, Blackstone, and Brookfield — has upgraded India from an "emerging market bet" to a "core digital infrastructure allocation."</p>
+  <div class="pq">
+    <p>"India stands at an inflection point. The projected increase in cloud data centre capacity from approximately 1.28 GW today to nearly four to five times this level by 2030 signals not just expansion, but structural transformation."</p>
+    <cite>— Turner &amp; Townsend, Data Centre Construction Cost Index 2025–26</cite>
+  </div>
+  <p>If India executes well on power, permitting, and talent — three persistent bottlenecks explored in this report — it is on track to surpass mature markets like the UK and parts of Europe in incremental DC growth, and to become the second-largest data center electricity market in Asia-Pacific by 2027, ahead of Japan and Australia.</p>
+</div>
+
+<!-- 02 MARKET SIZE -->
+<div class="tab-pane" id="t-market">
+  <div class="sh"><span class="sn">02</span><h2>Market Size &amp; Growth</h2></div>
+  <p>Market sizing estimates vary by methodology — revenue-based figures range from $6–14B for 2025. Capacity-based metrics (MW of IT load) are the most consistent cross-analyst measure. The table below synthesizes consensus estimates.</p>
+  <table class="dt">
+    <thead><tr><th>Metric</th><th>2025 (Actual)</th><th>2030 Projection</th><th>CAGR</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>IT Load Capacity (MW)</td><td>~1,520 MW</td><td>6.5–9 GW</td><td>~22–35%</td><td>S&amp;P Global, Mordor, Nomura</td></tr>
+      <tr><td>Revenue (USD)</td><td>$6.2–14B</td><td>$30–58B</td><td>10–22%</td><td>IMARC, Astute Analytica, GVR</td></tr>
+      <tr><td>Power Consumption</td><td>~0.8% of India's grid</td><td>~3% of India's grid</td><td>High growth</td><td>IEEFA, S&amp;P Global</td></tr>
+      <tr><td>Demand Absorption (leased MW)</td><td>427 MW — record high</td><td>Accelerating</td><td>—</td><td>Savills India / JLL</td></tr>
+      <tr><td>Hyperscale segment share</td><td>~56% of revenue</td><td>Growing</td><td>~23%</td><td>Mordor Intelligence</td></tr>
+      <tr><td>Colocation segment share</td><td>~61% of installed base</td><td>Colocation CAGR 22.67%</td><td>—</td><td>Mordor Intelligence</td></tr>
+      <tr><td>BFSI (largest end-user)</td><td>~33% market share</td><td>Sustained</td><td>—</td><td>Astute Analytica</td></tr>
+      <tr><td>Maharashtra capacity share</td><td>~26% (Mumbai = 52% of top-7)</td><td>Diversifying</td><td>—</td><td>IMARC</td></tr>
+    </tbody>
+  </table>
+  <div class="cw">
+    <div class="cl">India data center capacity (MW) — Historical &amp; Projected to 2030</div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;font-size:12px;color:var(--ink-muted);">
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#1a3a5c;"></span>Actual</span>
+      <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:rgba(26,58,92,0.28);border:1px dashed #1a3a5c;"></span>Projected</span>
+    </div>
+    <div style="position:relative;width:100%;height:280px;"><canvas id="capChart" role="img" aria-label="Bar chart showing India data center capacity growth from 575 MW in 2020 to projected 9000 MW in 2030">Capacity 2020–2030: 575, 650, 750, 950, 1133, 1520 (actual); 2000, 2800, 4000, 9000 (projected).</canvas></div>
+  </div>
+  <p>The sector doubled capacity in just four years — from ~750 MW in 2022 to 1,520 MW at end-2025. JLL anticipates 1.8 GW by 2027; Nomura projects 9.2 GW by 2030. Even the conservative CAGR of ~22% implies a 6x capacity expansion within a decade. Mumbai will require 4.41 million sq ft of new space over the next three years; Chennai will need a further 2.89 million sq ft.</p>
+</div>
+
+<!-- 03 TAILWINDS -->
+<div class="tab-pane" id="t-tailwinds">
+  <div class="sh"><span class="sn">03</span><h2>Tailwinds — Growth Drivers</h2></div>
+  <div class="wg">
+    <div class="wc tail">
+      <div class="wct">Structural demand drivers</div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>DPDP Act 2023 — Data Localization:</strong> India's Digital Personal Data Protection Act mandates Indian-resident personal data stays within India. Estimated to generate 1,800 MW of incremental DC demand. Multinationals must build or lease local infrastructure.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>AI &amp; GPU workload explosion:</strong> AI training pushes rack densities from 8 kW to 25–135 kW+. NVIDIA NVL 72 racks demand 140 kW/rack; future Rubin architecture targets 370 kW/rack. India's AI sector alone projected at $17B by 2027.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Internet &amp; mobile data boom:</strong> 900M+ internet users. Monthly data per user tripled from 11.5 GB (2019) to 32 GB (2025) — India is the global leader. Total data consumption expected to exceed 25 exabytes/month.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Hyperscaler mega-commitments:</strong> Microsoft ($3B), Google ($6B Vizag), AWS (8-city Local Zone expansion) — over $30B committed by hyperscalers in 2023–25. India is in every major hyperscaler's Tier 1 expansion list.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Submarine cable connectivity surge:</strong> 2Africa Pearls (180 Tbps, 2024), India-Asia-Express (200 Tbps, 2025), SEA-ME-WE-6 (220 Tbps). Chennai now anchors five active cable systems. India-Singapore latency: 22ms — enabling real-time global workloads.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>5G &amp; edge computing:</strong> Near-nationwide 5G coverage is creating demand for edge DCs in Tier 2 and 3 cities for gaming, IoT, and real-time processing needing sub-25ms latency.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Infrastructure Status designation:</strong> Government granted data centers infrastructure status (2020, strengthened 2025) — enabling priority lending, reduced interest rates, and fiscal benefits that materially lower project finance costs.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Geopolitics — US-China rivalry:</strong> India is the natural beneficiary of supply chain diversification away from China. US-India technology partnerships reinforce India as a geopolitically aligned, trusted digital infrastructure host.</div></div>
+    </div>
+    <div class="wc tail">
+      <div class="wct">Enabling &amp; economic drivers</div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Digital India &amp; IndiaAI Mission:</strong> Government GPU procurement (34,371 GPUs awarded by mid-2025), e-governance, ONDC, UPI — all drive sustained infrastructure demand across multiple verticals simultaneously.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Renewable energy advantage:</strong> India hit 50% non-fossil installed capacity by mid-2025 — 5 years ahead of Paris commitment. 15-year renewable PPAs available below INR 4/kWh — cutting DC opex by up to 30% vs. grid tariffs.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Cost competitiveness:</strong> Mumbai construction cost of $6.64/W compares favorably to Singapore ($8–10/W) and Frankfurt/London. Land, labor, and power cost advantages remain meaningful vs. saturated Western and Singapore markets.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>National grid advantage:</strong> India has a unified national grid — unlike the US or Europe. This enables inter-state power procurement flexibility and reduces locational power risk for operators managing multi-city footprints.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>BFSI latency demand:</strong> BSE and NSE create non-negotiable demand for sub-millisecond infrastructure in Mumbai. BFSI is ~33% of DC demand — the sector's most sticky, highest-uptime tenant base.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>UPI &amp; Fintech scale:</strong> India processes 15B+ UPI transactions/month. Real-time payment infrastructure requires always-on, low-latency compute at a scale few countries match globally.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Budget 2026 tax holiday to 2047:</strong> Tax holidays for data centers extended to 2047 for foreign cloud service firms — a 21-year certainty signal directly cited as driving hyperscaler capex acceleration post-announcement.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Global DC displacement:</strong> Moratoria in Singapore, Amsterdam, and parts of Dublin are structurally rerouting demand toward India — benefiting operators already established and operators planning new entry.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 HEADWINDS -->
+<div class="tab-pane" id="t-headwinds">
+  <div class="sh"><span class="sn">04</span><h2>Headwinds — Challenges &amp; Risks</h2></div>
+  <div class="wg">
+    <div class="wc head">
+      <div class="wct">Operational &amp; infrastructure challenges</div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Power infrastructure strain:</strong> Data centers set to consume 3% of India's electricity by 2030 (from 0.8% today). State DISCOMs, many financially stressed, face challenges upgrading substations for large priority loads. Actual electricity growth (~9% pa) is already outpacing government projections of 6.4%.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Land acquisition delays in metros:</strong> NTT paid $103M for 2.39 acres in Mumbai. CtrlS reportedly takes 3.5–4 years to build a DC in India vs. the global 12–18 month standard — largely due to land and permitting delays compounding.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Regulatory fragmentation:</strong> Permits span land allocation, environmental, power connections, building codes, fire safety — across central and state agencies with little coordination. "Day 0 readiness" (clear title + permits) remains the single biggest bottleneck operators cite across the board.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Skilled workforce deficit:</strong> Projected shortage of 100,000+ skilled workers by 2033. Gaps span blue-collar (HVAC, cooling plant) and white-collar (cybersecurity, DCIM). India has a world-class IT workforce — but not yet a world-class data center operations workforce at the required scale.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Water &amp; cooling constraints:</strong> AI racks require liquid cooling — significantly increasing water consumption. Data centers projected to consume 300B+ liters/year by 2030 — raising environmental and regulatory concerns in water-stressed regions like Bengaluru.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Inter-state power tariff disparity:</strong> Tariffs vary by up to INR 3/kWh across states — steering operators toward Karnataka and Tamil Nadu even at the cost of latency disadvantages, complicating national buildout plans.</div></div>
+    </div>
+    <div class="wc head">
+      <div class="wct">Macro &amp; structural risks</div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Capital intensity &amp; long payback:</strong> Single large campuses require $500M–$2B+ upfront capex with 10–15 year payback periods. Debt-heavy balance sheets are common. Rising interest rates increase project cost materially for new builds financed at current rates.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Equipment supply chain &amp; tariff risk:</strong> 60–70% of critical hardware is imported. US-China trade tension and IT equipment tariff uncertainty cause hesitation in capex decisions. Component lead times for power equipment remain elevated.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Geographic concentration risk:</strong> ~90% of capacity anchored in four cities. A localized grid failure, natural disaster, or regulatory action in Mumbai, Chennai, Delhi-NCR, or Bengaluru could significantly impact sector-wide performance.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Oversupply risk post-2027:</strong> With 2.3 GW under construction or planning, a slowdown in AI/cloud demand or regulatory shift could create oversupply conditions — compressing colocation pricing and yields for operators with high fixed cost structures.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Cybersecurity exposure:</strong> Large campuses are high-value targets for cyberattacks and physical sabotage. As India hosts more sovereign and financial data, threat actor interest increases. DPDP Act breach penalties add regulatory risk on top of operational damage.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>WTO / localization trade risk:</strong> Stringent data localization norms, if expanded, could lead to retaliatory trade barriers against Indian IT firms in foreign markets. Background risk — no active dispute today but worth monitoring as localization evolves.</div></div>
+      <div class="wi"><div class="wd"></div><div class="wt"><strong>Inland latency penalty:</strong> Bengaluru must backhaul traffic 350 km from Chennai, adding 4–6ms — ruling out ultra-low-latency use cases. Inland hubs must maintain a coastal presence for full-service positioning.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 GEOGRAPHY -->
+<div class="tab-pane" id="t-geography">
+  <div class="sh"><span class="sn">05</span><h2>Geography &amp; Clusters</h2></div>
+  <p>India's DC capacity is concentrated along its western and southeastern coasts. Tier 2 city expansion is gaining momentum as metro land costs and power constraints intensify.</p>
+  <div class="cw">
+    <div class="cl">Capacity share by city — end 2025 (approximate)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;font-size:12px;color:var(--ink-muted);">
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#1a3a5c;"></span>Mumbai 52%</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#2d6a4f;"></span>Chennai 21%</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#c8401a;"></span>Delhi-NCR 14%</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#b8860b;"></span>Bengaluru 9%</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#5b3a87;"></span>Hyderabad 6%</span>
+      <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#888780;"></span>Others 4%</span>
+    </div>
+    <div style="position:relative;width:100%;height:240px;"><canvas id="geoChart" role="img" aria-label="Horizontal bar chart of data center capacity by Indian city, Mumbai leads at 52%">Mumbai 52%, Chennai 21%, Delhi-NCR 14%, Bengaluru 9%, Hyderabad 6%, Others 4%.</canvas></div>
+  </div>
+  <table class="dt">
+    <thead><tr><th>City / Hub</th><th>Share</th><th>Key Advantage</th><th>Major Players</th><th>Outlook</th></tr></thead>
+    <tbody>
+      <tr><td>Mumbai / Navi Mumbai</td><td>~52% (670 MW)</td><td>Submarine cable hub; BSE/NSE proximity; grid reliability</td><td>Yotta, AdaniConneX, STT GDC, CtrlS, Equinix, NTT, Sify</td><td>Dominant; land scarcity pushing to Navi Mumbai &amp; Thane</td></tr>
+      <tr><td>Chennai</td><td>~21%</td><td>2nd-largest submarine cable hub; 5 active cable systems; TN incentives</td><td>Equinix CN1, CtrlS, Sify, Yotta, Princeton Digital, NTT, STT GDC</td><td>Fastest growing; on track to be #2 hub by 2030</td></tr>
+      <tr><td>Delhi-NCR (Noida/Manesar/Rai)</td><td>~14%</td><td>Government &amp; enterprise demand; Haryana land availability</td><td>Anant Raj, NTT, AdaniConneX (150 MW planned), Yotta, STT GDC</td><td>Stable; growing on government &amp; sovereign AI demand</td></tr>
+      <tr><td>Bengaluru</td><td>~9%</td><td>IT cluster; low renewable tariffs; startup &amp; enterprise base</td><td>NTT, STT GDC, Equinix, Netmagic</td><td>Highest forecast CAGR (23.78%); hyperscale renewable deals</td></tr>
+      <tr><td>Hyderabad</td><td>~6%</td><td>Telangana incentives; Microsoft $32M land buy; AI cluster investment</td><td>AdaniConneX (600 MW planned), NTT DATA, Microsoft, CtrlS, Aurum Equity</td><td>Emerging megacampus hub; high growth expected</td></tr>
+      <tr><td>Visakhapatnam (Vizag)</td><td>Nascent</td><td>Google-Adani $15B campus; Andhra Pradesh policy; coastal connectivity</td><td>AdaniConneX + Google (1 GW), Digital Connexion ($11B campus)</td><td>Biggest single greenfield opportunity in India</td></tr>
+      <tr><td>Pune, Kochi, Ahmedabad, Kolkata</td><td>&lt;5% combined</td><td>Lower land &amp; power costs; proximity to Tier-2 user bases</td><td>Web Werks (Pune), Nxtra, Reliance Jio, CtrlS (Kolkata 16 MW)</td><td>Edge &amp; mid-tier focus; growing as metro overflow</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 06 ECOSYSTEM -->
+<div class="tab-pane" id="t-ecosystem">
+  <div class="sh"><span class="sn">06</span><h2>Ecosystem — Who Does What</h2></div>
+  <p>India's data center value chain is multilayered. Understanding which players participate at each layer is essential for investors, enterprise buyers, and strategic partners.</p>
+  <table class="dt">
+    <thead><tr><th>Layer</th><th>What They Do</th><th>Key Players</th><th>Capital Intensity</th></tr></thead>
+    <tbody>
+      <tr><td>Land / Cold Shell Developers</td><td>Provide land, construct bare shell buildings (civil works, basic power access). Often real estate-backed entities that sell or lease cold shells to DC operators.</td><td>Anant Raj Cloud, Hiranandani Group (Yotta parent), Brookfield India, Embassy Group, Lodha Group, CtrlS (Chandanvelly 40-acre park)</td><td style="color:var(--accent-2);font-weight:600;">Very High</td></tr>
+      <tr><td>Colocation Operators</td><td>Design, build, and operate data center facilities. Offer colocation racks, suites, and wholesale power to enterprise and hyperscaler tenants on long-term contracts.</td><td>STT GDC India, NTT (Netmagic), CtrlS, Sify Technologies, Nxtra (Airtel), Yotta, Web Werks, Pi Datacenters, Equinix, Iron Mountain</td><td style="color:var(--accent-2);font-weight:600;">Very High</td></tr>
+      <tr><td>Hyperscalers / Cloud (Self-Builds)</td><td>Build and operate dedicated hyperscale campuses for their own cloud platforms — increasingly supplemented by owned GPU clusters for AI.</td><td>Amazon AWS, Microsoft Azure, Google Cloud, Meta</td><td style="color:var(--accent-2);font-weight:600;">Extreme</td></tr>
+      <tr><td>Conglomerate-Backed Players</td><td>Large Indian conglomerates using balance sheet strength and existing land/power assets to build hyperscale capacity — often via international JVs.</td><td>AdaniConneX (Adani + EdgeConneX), Reliance Jio DC, Tata Communications, ESDS Software</td><td style="color:var(--accent-2);font-weight:600;">Very High</td></tr>
+      <tr><td>EPC / Data Center Builders</td><td>Engineering, Procurement &amp; Construction contractors who physically build data center facilities to operator specifications.</td><td>Larsen &amp; Toubro (L&T), Shapoorji Pallonji, Sterling &amp; Wilson, Sterlite Power, Techno Electric &amp; Engineering</td><td style="color:var(--accent-3);font-weight:600;">Medium</td></tr>
+      <tr><td>Power &amp; Cooling Infrastructure</td><td>Supply UPS systems, cooling towers, chillers, liquid cooling, switchgear, transformers, diesel generators — critical capex items for every data center build.</td><td>Schneider Electric India, ABB India, Siemens Energy, Vertiv Holdings, Cummins India, Caterpillar, Delta Electronics, Hitachi Energy India, CG Power</td><td style="color:var(--accent-3);font-weight:600;">Medium</td></tr>
+      <tr><td>Networking &amp; Connectivity</td><td>Switches, routers, optical transport, submarine cable capacity, and last-mile fiber for inter-DC and internet connectivity.</td><td>Cisco, Arista, Sterlite Technologies, Tata Communications, Bharti Airtel (fiber)</td><td style="color:var(--accent-3);font-weight:600;">Medium</td></tr>
+      <tr><td>Compute &amp; Storage Hardware</td><td>Servers, storage arrays, GPU clusters for AI training and inference — the fastest-growing capex category.</td><td>NVIDIA, Dell Technologies, HPE, Netweb Technologies, Lenovo, AMD, Micron, SK Hynix</td><td style="color:var(--accent-3);font-weight:600;">Medium-High</td></tr>
+      <tr><td>Renewable Energy Providers</td><td>Supply green power via captive solar/wind farms or long-term PPAs — critical for ESG compliance and opex reduction (up to 30% lower vs. grid).</td><td>Adani Green Energy, Greenko, ReNew Power, CleanMax (Equinix PPA), Azure Power, NTPC Renewables</td><td style="color:var(--accent-3);font-weight:600;">High</td></tr>
+      <tr><td>AI Infrastructure / GPU-as-a-Service</td><td>Provide sovereign GPU clusters and AI acceleration to enterprises and government — an emerging value layer atop traditional colocation.</td><td>Yotta (16,000 H100 GPUs), NVIDIA (ecosystem), Reliance-NVIDIA JV (10,000-GPU supercomputer), L&T-NVIDIA sovereign AI factory</td><td style="color:var(--accent-3);font-weight:600;">High</td></tr>
+      <tr><td>Investors / Financial Sponsors</td><td>PE, sovereign wealth, and infrastructure funds providing equity and debt capital to fund capacity additions.</td><td>Carlyle Group (Nxtra stake), Blackstone, Brookfield, GIC Singapore, Temasek, Aurum Equity ($400M green AI fund), DigitalBridge</td><td style="color:var(--ink-faint);font-weight:600;">Capital Provider</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 07 KEY PLAYERS -->
+<div class="tab-pane" id="t-players">
+  <div class="sh"><span class="sn">07</span><h2>Key Players</h2></div>
+  <p>The top five operators control ~45% of installed capacity. The following profiles cover the most strategically significant participants across the ecosystem.</p>
+  <div class="pg">
+    <div class="pc"><span class="badge bb">Operator — Colocation</span><h4>STT GDC India</h4><p>Temasek-linked. India's largest third-party DC operator by live MW (300+ MW). Committed $3.2B to add 550 MW over 5–6 years. Strong BFSI and government client base. Active in Mumbai, Chennai, Bengaluru, Delhi-NCR, Hyderabad. Constructing two new Navi Mumbai facilities.</p></div>
+    <div class="pc"><span class="badge bb">Operator — Colocation</span><h4>NTT (Netmagic)</h4><p>292 MW live as of July 2025 — targeting 400 MW within 18–24 months. NTT DATA signed $1.18B MoU with Telangana for 400 MW AI-driven cluster. Building $1.2B AI cluster in Hyderabad separately. Paid $103M for 2.39 acres in Mumbai in a high-profile land deal.</p></div>
+    <div class="pc"><span class="badge bt">Conglomerate — Hyperscale JV</span><h4>AdaniConneX</h4><p>JV: Adani Enterprises + EdgeConneX. Targeting 1 GW nationally — Navi Mumbai (1,000 MW), Hyderabad (600 MW), Pune (250 MW), Noida (150 MW). Google $15B Vizag ecosystem partnership. $10B investment roadmap. 17 MW live; 210 MW under construction early 2025.</p></div>
+    <div class="pc"><span class="badge bb">Operator — Tier IV Specialist</span><h4>CtrlS Datacenters</h4><p>India's premier Tier IV (fault-tolerant) operator. $2B capex plan. Chandanvelly Park, Hyderabad (612 MW, 40 acres). Chennai campus (72 MW, $482M). Kolkata (16 MW live). Handles 135 kW/rack; immersion cooling to 300 kW. FY2025 revenue: ₹1,567 cr; ~50% margins. IPO signaled.</p></div>
+    <div class="pc"><span class="badge bp">AI Cloud + Colocation</span><h4>Yotta Infrastructure</h4><p>Hiranandani Group. India's most visible AI-native pivot — 16,000 Nvidia H100 GPUs ordered in 2024 (targeting 32,000). Navi Mumbai NM1: 820,000 sq ft. $200M debt for 250 MW Greater Noida project. Revenue ~$156M FY25 and growing rapidly. Domestic IPO likely FY26–27.</p></div>
+    <div class="pc"><span class="badge bt">Telco-Backed Operator</span><h4>Nxtra by Airtel</h4><p>Bharti Airtel subsidiary backed by Carlyle Group (~$3B valuation). 120+ edge + 12 core DCs. Targeting 400 MW doubling via $586M investment. ~50% EBITDA margins. Leverages Airtel fiber and submarine cable assets. IPO evaluation ongoing.</p></div>
+    <div class="pc"><span class="badge bb">NASDAQ-Listed Operator</span><h4>Sify Technologies</h4><p>Listed on NASDAQ. DC services = 38% of revenue. SEBI-approved India IPO — Sify Infinit Spaces Ltd (₹3,700 cr). Hyperscale campus in west India. Parent net debt ~₹3,995 cr; IPO proceeds partially delever. High-margin DC business on long-term contracts.</p></div>
+    <div class="pc"><span class="badge ba">Global Interconnect</span><h4>Equinix</h4><p>Opened first Chennai IBX (CN1) in Sept 2025 — $69M, AI-ready, liquid-cooling capable, linked to Mumbai campus. Signed 33 MW renewable PPA with CleanMax. Acquired 1.38 acres in Mumbai for $18.6M. Globally committing to 1 GW of nuclear power supply for its DC portfolio.</p></div>
+    <div class="pc"><span class="badge bt">Conglomerate — Hyperscale</span><h4>Reliance Industries (Jio DC)</h4><p>1 GW Jamnagar DC announced — designed to be among the world's largest single campuses. NVIDIA partnership for chips. Aims to triple India's total DC capacity. Targeting AI infrastructure for Indian-language LLMs. Jio Platforms may eventually spin off cloud assets.</p></div>
+    <div class="pc"><span class="badge bgr">Real Estate + DC (Listed)</span><h4>Anant Raj Ltd</h4><p>Listed on BSE/NSE. Pivoting to DC via Anant Raj Cloud. Operational DCs in Panchkula, Manesar, Rai (Haryana). Targeting 300 MW; ₹10,000 cr investment. Immersion cooling partnership with Submer Technologies. Q3 FY26: EBITDA ₹1.7B; margin 26.5%. Most direct India-listed DC proxy.</p></div>
+    <div class="pc"><span class="badge bp">Hyperscaler</span><h4>Microsoft Azure</h4><p>$3B cloud &amp; AI commitment (Jan 2025). 48-acre Hyderabad land ($32M). Hyderabad region expanded 50 MW (Jan 2026) with Azure OpenAI GPU clusters. Three Azure regions in India with advanced GPU clusters. One of Microsoft's top 5 global investment markets.</p></div>
+    <div class="pc"><span class="badge bp">Hyperscaler</span><h4>Google Cloud</h4><p>$6B Visakhapatnam campus + power infrastructure. $15B ecosystem alliance with Adani for Bengaluru, Delhi-NCR, and Mumbai cloud regions. First 80 MW site due mid-2026. Represents the single largest foreign DC commitment in India alongside Adani's capital.</p></div>
+  </div>
+</div>
+
+<!-- 08 INVESTMENTS -->
+<div class="tab-pane" id="t-investments">
+  <div class="sh"><span class="sn">08</span><h2>Committed Investments</h2></div>
+  <p>India secured nearly $95 billion in data center investment commitments between 2019 and 2025. The table below captures the major announced and committed capital by player.</p>
+  <table class="dt">
+    <thead><tr><th>Investor / Operator</th><th>Commitment</th><th>Focus Area</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Adani Group + Google (JV)</td><td>$15B ecosystem</td><td>1 GW Vizag campus + subsea cables + Google cloud regions in Bengaluru, Mumbai, Delhi-NCR</td><td>Active — 1st 80 MW due mid-2026</td></tr>
+      <tr><td>Adani Group (standalone)</td><td>$10B</td><td>Multi-city DC buildout via AdaniConneX — Navi Mumbai, Hyderabad, Pune, Noida</td><td>Active — 210 MW under construction</td></tr>
+      <tr><td>Digital Connexion</td><td>$11B</td><td>Andhra Pradesh mega-campus near Vizag</td><td>Announced; planning stage</td></tr>
+      <tr><td>Google Cloud (direct)</td><td>$6B</td><td>Visakhapatnam data center campus + supporting power infrastructure</td><td>Multi-year phased build</td></tr>
+      <tr><td>STT GDC India</td><td>$3.2B</td><td>550 MW additional capacity over 5–6 years</td><td>Active deployment</td></tr>
+      <tr><td>Microsoft Azure</td><td>$3B+</td><td>Cloud &amp; AI infra; Azure regions; Hyderabad 50 MW expansion now live</td><td>Active deployments</td></tr>
+      <tr><td>Schneider Electric India (JV buyout)</td><td>$6.4B</td><td>Acquires remaining 35% JV stake from Temasek; plans 2.5–3x India ops expansion</td><td>Completed July 2025</td></tr>
+      <tr><td>CtrlS Datacenters</td><td>$2B (₹4,500–4,600 cr capex)</td><td>Green AI-ready campuses: Chandanvelly, Chennai, Kolkata, Bhopal, Patna</td><td>Active; FY2026–28 plan</td></tr>
+      <tr><td>NTT Global Data Centers</td><td>$1.5B + $1.2B AI cluster</td><td>Double capacity + dedicated AI cluster in Hyderabad with Telangana</td><td>Active expansion</td></tr>
+      <tr><td>AdaniConneX (sustainability financing)</td><td>$1.44B</td><td>Multi-site construction financing framework</td><td>Secured April 2024</td></tr>
+      <tr><td>Yotta Infrastructure</td><td>$1B (Nvidia H100s) + $200M debt</td><td>16,000 H100 GPU cluster + Greater Noida 250 MW campus</td><td>Active — GPU procurement &amp; construction</td></tr>
+      <tr><td>Nxtra by Airtel</td><td>$586M</td><td>Double capacity from ~200 MW to 400 MW across metros</td><td>Active deployment</td></tr>
+      <tr><td>Aurum Equity Partners</td><td>$400M fund</td><td>Green AI data center in Hyderabad — ESG-first, AI-ready campus</td><td>Fund deployed</td></tr>
+      <tr><td>L&T + NVIDIA (IndiaAI Mission)</td><td>Undisclosed</td><td>30 MW GPU cluster (Chennai, 300-acre campus) + 40 MW AI-ready DC (Mumbai)</td><td>MoU Feb 2026; active build</td></tr>
+      <tr><td>Reliance Industries (Jio DC)</td><td>$5B+ (est.)</td><td>1 GW Jamnagar campus; NVIDIA partnership for India-language LLMs</td><td>Announced Jan 2025; planning</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 09 TRENDS -->
+<div class="tab-pane" id="t-trends">
+  <div class="sh"><span class="sn">09</span><h2>Trends to Watch</h2></div>
+  <div class="tg">
+    <div class="tc"><div class="ti">&#9889;</div><h4>AI-fication of infrastructure</h4><p>Standard DCs retrofitted for GPU-dense workloads. Rack densities shifting from 8 kW to 25–135 kW+. NVIDIA NVL 72 racks demand 140 kW/rack; future Rubin architecture targets 370 kW. Liquid cooling (direct-to-chip, immersion) is now mandatory for new AI campuses. Global liquid cooling market heading to $31B by 2032.</p></div>
+    <div class="tc"><div class="ti">&#9652;</div><h4>Tier 2 city expansion</h4><p>Rising metro land costs and grid congestion pushing operators toward Ahmedabad, Kochi, Visakhapatnam, Nagpur, Lucknow, and Jaipur — offering cheaper land, better renewable power access, and proximity to fast-growing Tier 2 user bases. Edge DCs in Tier 3 cities coming next.</p></div>
+    <div class="tc"><div class="ti">&#9672;</div><h4>Gigawatt-scale campus cities</h4><p>Individual campus ambitions now run to 600 MW–1 GW. AdaniConneX Navi Mumbai (1,000 MW planned), Reliance Jamnagar (1 GW), CtrlS Chandanvelly (612 MW) — India is entering the era of campus-scale digital infrastructure projects each larger than most countries' entire DC markets.</p></div>
+    <div class="tc"><div class="ti">&#9787;</div><h4>Green data centers</h4><p>STT GDC India already at 62.5% renewable usage. CtrlS building 125 MWp captive solar farm. 15-year renewable PPAs at below INR 4/kWh are now standard for new hyperscale builds. "Green First" is a pricing differentiator, ESG compliance tool, and a pre-condition of global institutional investment.</p></div>
+    <div class="tc"><div class="ti">&#127981;</div><h4>Sovereign AI infrastructure</h4><p>IndiaAI Mission, BharatGen, Sarvam AI, and L&T-NVIDIA partnership signal government intent for domestic GPU-native sovereignty. Two GPU tender rounds completed in 2025; 34,371 GPUs awarded. State and central policy will directly subsidize this emerging infrastructure layer.</p></div>
+    <div class="tc"><div class="ti">&#9997;</div><h4>DC IPO wave — 2026–27</h4><p>Sify Infinit Spaces (SEBI approved, ₹3,700 cr), Yotta (domestic listing likely FY27), Nxtra by Airtel (~$3B valuation), CtrlS (intent signaled) — all moving toward public markets. First pure-play India DC IPO cycle — will unlock institutional and retail access to the theme directly.</p></div>
+    <div class="tc"><div class="ti">&#9965;</div><h4>Modular &amp; prefab construction</h4><p>India receives more prefabricated modular DC halls than any other APAC market except China. Operators use modular builds to compress construction timelines from the 3.5–4 year India average to 12–18 months in favorable regulatory environments.</p></div>
+    <div class="tc"><div class="ti">&#9680;</div><h4>M&amp;A &amp; consolidation</h4><p>Schneider Electric acquired its Indian JV for $6.4B (July 2025). Equinix and Digital Realty pursuing Indian partnerships. As build costs rise, PE-backed consolidation of mid-sized operators is expected — particularly those unable to achieve AI-dense infrastructure economics at scale.</p></div>
+  </div>
+</div>
+
+<!-- 10 POLICY -->
+<div class="tab-pane" id="t-policy">
+  <div class="sh"><span class="sn">10</span><h2>Regulatory &amp; Policy Framework</h2></div>
+  <p>India's policy architecture is increasingly supportive — but implementation gaps at the state-center interface remain a key execution risk. The following are the most significant policy levers shaping the sector.</p>
+  <div class="polig">
+    <div class="polic"><h4>DPDP Act 2023</h4><p>India's foundational data localization law. Mandates certain personal data stay within India. Empowers government to restrict cross-border data transfers. Single largest structural demand driver for domestic DC capacity — estimated to add 1,800 MW of incremental need independently.</p></div>
+    <div class="polic"><h4>Infrastructure Status</h4><p>Government classified DCs as "essential infrastructure" in 2020, strengthened in 2025. Enables priority sector lending, reduced interest rates, and fiscal benefits unavailable to conventional commercial real estate — materially lowering project finance costs for operators.</p></div>
+    <div class="polic"><h4>Draft National DC Policy (2025)</h4><p>Up to 20-year conditional tax exemptions. Input tax credits on HVAC and electrical capex. 100% electricity duty exemption. Single-window clearances. Data Centre Economic Zones with pre-allocated land near IT corridors. Incentives for renewable energy integration.</p></div>
+    <div class="polic"><h4>Budget 2026 — Tax Holiday to 2047</h4><p>Finance Minister extended tax holidays for DCs to 2047 for foreign cloud service firms using Indian data centers. A 21-year certainty signal directly cited as driving hyperscaler capex acceleration. Anant Raj and E2E Networks surged 7–13% on announcement day.</p></div>
+    <div class="polic"><h4>Digital India Programme</h4><p>Flagship initiative driving cloud adoption and e-governance. ONDC, India Stack, Aadhaar, UPI — all generate structural DC demand. Digital India directly feeds sustained DC capacity utilization across BFSI, healthcare, government, and enterprise verticals.</p></div>
+    <div class="polic"><h4>IndiaAI Mission</h4><p>Government GPU procurement: two tender rounds completed by mid-2025, 34,371 GPUs awarded (~50% installed). L&T, NVIDIA, BharatGen, Sarvam AI participating. Estimated to add 2 TWh of annual electricity demand once fully operational.</p></div>
+    <div class="polic"><h4>State-Level Competition</h4><p>Maharashtra, Karnataka, Tamil Nadu, Telangana, and UP account for ~45% of investment commitments. Each state competes via land subsidies, power waivers, and fast-track approvals. Rajasthan DC Policy 2025 targets $2.4B in 5 years. Telangana signed $1.18B NTT DATA MoU for 400 MW AI cluster.</p></div>
+    <div class="polic"><h4>Renewable Energy Targets</h4><p>India crossed 50% non-fossil installed capacity by mid-2025 — 5 years ahead of Paris commitment. Added 28 GW of solar and wind in 2024. This enables DCs to lock long-term green PPAs — increasingly a pre-condition for global institutional equity and debt investment.</p></div>
+  </div>
+  <p style="font-size:13px;color:var(--ink-muted);">Implementation note: While the policy direction is highly supportive, regulatory fragmentation — particularly around single-window clearances, DISCOM upgrade timelines, and inter-state power procurement rules — remains the bottleneck most commonly cited by operators. Policy intent and on-the-ground execution continue to diverge.</p>
+</div>
+
+<!-- 11 STOCKS -->
+<div class="tab-pane" id="t-stocks">
+  <div class="sh"><span class="sn">11</span><h2>Listed Stock Plays &amp; Investment Angles</h2></div>
+  <div class="info">&#9432; Informational only — not investment advice. Verify current prices and fundamentals independently before making any decisions.</div>
+
+  <div class="subh">Direct / Operator Plays</div>
+
+  <div class="ic">
+    <div class="ich"><h4>Anant Raj Ltd</h4><span class="ticker">NSE: ANANTRAJ &nbsp;|&nbsp; BSE: 515055</span></div>
+    <p>The most direct pure-play listed proxy on India's DC buildout. Anant Raj Cloud (subsidiary) scaling from 3 MW to 300 MW target with ₹10,000 cr investment. Large Haryana land bank (Manesar, Rai, Panchkula) gives structural cost advantage. Immersion cooling partnership with Submer Technologies for AI-ready builds. Q3 FY26: EBITDA ₹1.7B; margin improved to 26.5% from 25.1% YoY. Credit rating upgrades improving debt access. Budget 2026 direct beneficiary — shares surged 7% on announcement.</p>
+    <div class="pcl">
+      <span class="pro">&#43; Purest listed DC + real estate combination in India</span>
+      <span class="pro">&#43; Cheap Haryana land bank in key NCR corridor</span>
+      <span class="pro">&#43; Direct Budget 2026 beneficiary</span>
+      <span class="con">&#8722; Relatively early-stage DC execution vs. NTT / STT GDC</span>
+      <span class="con">&#8722; High capex intensity; leverage risk as scale-up accelerates</span>
+    </div>
+  </div>
+
+  <div class="ic">
+    <div class="ich"><h4>Sify Technologies</h4><span class="ticker">NASDAQ: SIFY</span></div>
+    <p>US-listed entity operating in India. DC services = 38% of revenue. SEBI approval received for Sify Infinit Spaces (SISL) India IPO — ₹3,700 cr (₹2,500 cr fresh equity). The India listing is a significant potential re-rating event. Post-IPO valuation estimated at 10–12x run-rate EBITDA. Parent net debt ~₹3,995 cr; IPO proceeds partially delever. ~50% EBITDA margins on DC business via long-term enterprise contracts.</p>
+    <div class="pcl">
+      <span class="pro">&#43; Imminent India IPO unlock event — potential re-rating catalyst</span>
+      <span class="pro">&#43; Telco-network + DC synergy for enterprise clients</span>
+      <span class="con">&#8722; Meaningful leverage on parent balance sheet</span>
+      <span class="con">&#8722; Competition from better-capitalized players (NTT, STT, Equinix)</span>
+    </div>
+  </div>
+
+  <div class="ic">
+    <div class="ich"><h4>Bharti Airtel (Nxtra proxy)</h4><span class="ticker">NSE: BHARTIARTL &nbsp;|&nbsp; BSE: 532454</span></div>
+    <p>Nxtra Data (DC subsidiary, Carlyle-backed) is not separately listed — investors access via Bharti Airtel's consolidated stock. Nxtra has ~$3B estimated valuation, 120+ edge locations, and ~50% EBITDA margins. A potential Nxtra IPO is significant embedded optionality in Airtel stock — not yet explicitly priced in. Airtel's fiber and submarine cable infrastructure gives Nxtra a structural connectivity moat vs. standalone operators.</p>
+    <div class="pcl">
+      <span class="pro">&#43; Strong parent balance sheet + fiber network synergy</span>
+      <span class="pro">&#43; Potential Nxtra IPO = embedded, unpriced optionality</span>
+      <span class="pro">&#43; ~50% EBITDA margins on DC with long-term contract security</span>
+      <span class="con">&#8722; DC is a minority of consolidated Airtel P&amp;L today</span>
+      <span class="con">&#8722; No pure-play DC premium in current Airtel stock valuation</span>
+    </div>
+  </div>
+
+  <div class="ic">
+    <div class="ich"><h4>Adani Enterprises</h4><span class="ticker">NSE: ADANIENT &nbsp;|&nbsp; BSE: 512599</span></div>
+    <p>AdaniConneX wholly owned by Adani Enterprises. $10B DC roadmap, $15B Google partnership, access to Adani's integrated renewable energy, port, and land infrastructure provides unmatched economics for large-scale builds. The conglomerate structure dilutes pure-play DC exposure; however, at 1 GW scale, AdaniConneX could eventually spin off as a standalone entity commanding a significant premium to the current conglomerate valuation.</p>
+    <div class="pcl">
+      <span class="pro">&#43; Largest DC pipeline in India targeting 1 GW nationally</span>
+      <span class="pro">&#43; Integrated renewable + land + connectivity advantage</span>
+      <span class="con">&#8722; Conglomerate discount; DC exposure diluted in large group P&amp;L</span>
+      <span class="con">&#8722; Group-level governance and leverage concerns persist for some institutional investors</span>
+    </div>
+  </div>
+
+  <div class="ic">
+    <div class="ich"><h4>Tata Communications</h4><span class="ticker">NSE: TATACOMM &nbsp;|&nbsp; BSE: 500483</span></div>
+    <p>Listed Tata group entity with DC hosting and managed services as a core business. Improving financial trajectory: low-double-digit revenue CAGR over 3 years; margin expansion underway. Tata group governance premium, global interconnect network, and DC-cloud hybrid positioning make it a quality mid-cycle play on enterprise DC demand without excessive leverage.</p>
+    <div class="pcl">
+      <span class="pro">&#43; Tata governance premium + global interconnect advantage</span>
+      <span class="pro">&#43; Improving margins; less levered than pure-play peers</span>
+      <span class="con">&#8722; Not a pure-play DC stock; diversified across connectivity and managed IT</span>
+    </div>
+  </div>
+
+  <div class="subh">Ancillary &amp; Value Chain Plays</div>
+
+  <div class="ic">
+    <div class="ich"><h4>Techno Electric &amp; Engineering</h4><span class="ticker">NSE: TECHNOE &nbsp;|&nbsp; BSE: 542141</span></div>
+    <p>Power sector EPC contractor building a 36 MW data center in Chennai as part of a $1B digital infrastructure plan. Key insight: ancillary plays in the DC capex cycle often outperform operators in early phases when construction and equipment demand surges ahead of facility revenue recognition. Power engineering expertise directly applicable to HV substation and grid infrastructure for large DC campuses.</p>
+    <div class="pcl">
+      <span class="pro">&#43; DC capex cycle beneficiary without project execution risk of operators</span>
+      <span class="pro">&#43; Power engineering expertise directly applicable to DC infrastructure</span>
+      <span class="con">&#8722; Project concentration risk; watch order book diversification</span>
+    </div>
+  </div>
+
+  <div class="ic">
+    <div class="ich"><h4>ABB India / Siemens India</h4><span class="ticker">NSE: ABB &nbsp;|&nbsp; NSE: SIEMENS</span></div>
+    <p>Power and automation equipment manufacturers are direct beneficiaries of DC capex without project execution risks. ABB introduced the HiPerGuard MV UPS specifically for AI data centers (June 2025). Siemens opened a 6,000 sqm DC Center of Competence in Chennai. Both benefit from every MW of capacity built in India — regardless of which operator wins the build. Schneider Electric India (completed $6.4B JV buyout from Temasek, July 2025) is now private — no longer a listed play in India post-transaction.</p>
+    <div class="pcl">
+      <span class="pro">&#43; Capex-cycle beneficiary with diversified client risk across operators</span>
+      <span class="pro">&#43; Every new DC build = equipment orders regardless of who wins</span>
+      <span class="con">&#8722; Industrial conglomerates; DC is one of several verticals</span>
+    </div>
+  </div>
+
+  <div class="ic">
+    <div class="ich"><h4>Netweb Technologies / E2E Networks</h4><span class="ticker">NSE: NETWEB &nbsp;|&nbsp; NSE: E2ENETWORKS</span></div>
+    <p>Netweb is a domestic server OEM gaining traction as India's Make-in-India compute push intensifies — well-positioned to supply racks to DCs and government AI programs under IndiaAI Mission. E2E Networks is a small-cap cloud infrastructure company that surged 13% post-Budget 2026 DC announcements. Both are high-risk, high-beta plays — small scale creates meaningful execution and liquidity risk, but the thematic leverage to AI compute demand is among the highest of any listed Indian names.</p>
+    <div class="pcl">
+      <span class="pro">&#43; High thematic leverage to AI infra buildout and Make-in-India</span>
+      <span class="pro">&#43; Government GPU/server supply positioning for IndiaAI Mission</span>
+      <span class="con">&#8722; Small scale; significant execution, competition, and liquidity risk</span>
+    </div>
+  </div>
+
+  <div class="subh">Upcoming IPO Pipeline — 2026–2027</div>
+  <div class="ir">
+    <div class="in">Sify Infinit Spaces</div>
+    <span class="badge bg" style="align-self:center;">SEBI Approved</span>
+    <div class="id">₹3,700 cr (₹2,500 cr fresh equity + ₹1,200 cr OFS). First SEBI-approved pure-play DC India IPO. Post-IPO valuation est. 10–12x run-rate EBITDA. Most likely first to market — watch H1 FY2027 listing window.</div>
+  </div>
+  <div class="ir">
+    <div class="in">Yotta Infrastructure</div>
+    <span class="badge ba" style="align-self:center;">Evaluating</span>
+    <div class="id">Nasdaq SPAC route shelved; domestic listing FY2026–27 likely. Revenue ~$156M FY25; deep losses due to GPU capex. AI-cloud framing could support 30–40x sales multiples. Hiranandani Group land and construction expertise provides certainty on execution.</div>
+  </div>
+  <div class="ir">
+    <div class="in">Nxtra by Airtel</div>
+    <span class="badge ba" style="align-self:center;">Exploring</span>
+    <div class="id">Carlyle-backed; ~$3B valuation estimate. ~50% EBITDA margins. Would be the highest-quality pure-play DC listing on an Indian exchange. Timing tied to Airtel strategic priorities and Carlyle exit horizon. Watch Q2/Q3 FY2027.</div>
+  </div>
+  <div class="ir">
+    <div class="in">CtrlS Datacenters</div>
+    <span class="badge bgr" style="align-self:center;">Signaled intent</span>
+    <div class="id">$2B capex plan needs public equity. FY2025 revenue ₹1,567 cr; ~50% margins. Tier IV niche + BFSI base = premium positioning. Promoters signaled "once scale-up is sufficient" — likely FY2027 at earliest.</div>
+  </div>
+
+  <div class="disc">
+    <strong>Smart Money Circle — Important Disclosure:</strong> This section is for informational and educational purposes only. It does not constitute financial, investment, legal, or tax advice. Information is derived from publicly available sources as of April 2026. Market projections are third-party estimates subject to material revision. Past performance is not indicative of future results. Readers must conduct independent due diligence and consult qualified advisors before making investment decisions. The author holds no positions in any securities mentioned herein.
+  </div>
+</div>
+
+<!-- 12 RISK MATRIX -->
+<div class="tab-pane" id="t-risk">
+  <div class="sh"><span class="sn">12</span><h2>Risk Matrix</h2></div>
+  <p>The following matrix summarizes the key risks to India's data center growth thesis — their severity, near-term likelihood, and current mitigation status.</p>
+  <table class="dt">
+    <thead><tr><th>Risk</th><th>Severity</th><th>Likelihood (Near-Term)</th><th>Mitigation / Status</th></tr></thead>
+    <tbody>
+      <tr><td>Power grid constraints &amp; DISCOM failures</td><td class="rh">High</td><td class="rh">High</td><td>Operators deploying captive solar, battery storage, diesel backup as standard. State DISCOMs being incentivized to upgrade. Grid strain expected to persist 3–5 years before infrastructure catches up with DC load growth.</td></tr>
+      <tr><td>Land acquisition delays / metro scarcity</td><td class="rh">High</td><td class="rh">High</td><td>Operators pre-acquiring large land parcels (CtrlS: 40 acres; Microsoft: 48 acres Hyderabad). Tier 2 city expansion as structural mitigant. Build timelines of 3.5–4 years vs. global 12–18 months remain a competitive disadvantage.</td></tr>
+      <tr><td>Regulatory / permit fragmentation</td><td class="rm">Medium</td><td class="rh">High</td><td>Draft National DC Policy promises single-window clearances. Maharashtra and Telangana already implementing. Full national implementation awaited — consistently the top bottleneck cited by operators in 2025–26.</td></tr>
+      <tr><td>Skilled workforce shortage</td><td class="rm">Medium</td><td class="rh">High</td><td>100,000+ gap projected by 2033. NSDC skilling programs in development. PPP training partnerships emerging but not yet at scale. University-level DC operations programs remain nascent across India.</td></tr>
+      <tr><td>AI demand slowdown / hyperscaler capex correction</td><td class="rh">High</td><td class="rl">Low (near-term)</td><td>Current AI capex cycle locked via multi-year contracts. Near-term risk is low; medium-term correction possible if LLM economics shift. 2027–28 is the key watch period for demand sustenance.</td></tr>
+      <tr><td>Oversupply risk post-2027</td><td class="rm">Medium</td><td class="rm">Medium</td><td>2.3 GW under construction or planning. If cloud/AI demand moderates, vacancy rates could rise and colocation pricing would compress — squeezing operators with high fixed cost structures.</td></tr>
+      <tr><td>Equipment supply chain / US tariff risk</td><td class="rm">Medium</td><td class="rm">Medium</td><td>60–70% of hardware is imported. Operators building inventory buffers. Make-in-India push (Netweb, HCL Hardware) is a medium-term solution but not yet at sufficient scale for critical infrastructure components.</td></tr>
+      <tr><td>Cybersecurity &amp; data breach risk</td><td class="rh">High</td><td class="rm">Medium</td><td>DCs are high-value targets as India hosts more sovereign and BFSI data. DPDP Act breach penalties are significant. Operators investing in cyber infrastructure; global attacks on critical infra are rising.</td></tr>
+      <tr><td>Water consumption / ESG regulatory backlash</td><td class="rm">Medium</td><td class="rm">Medium (growing)</td><td>DCs projected to consume 300B+ liters/year by 2030. Water-efficient cooling being adopted but not universal. Regulatory action possible in water-stressed regions like Bengaluru and parts of Maharashtra.</td></tr>
+      <tr><td>WTO / trade retaliation on data localization</td><td class="rm">Medium</td><td class="rl">Low</td><td>No active WTO dispute on India's DPDP Act. India's geopolitical leverage and market size make punitive retaliation unlikely near-term. Background risk to monitor as India's localization framework expands.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <div class="smc-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;">
+        <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+        <path d="M8 14.5c0-1.5 1.2-2.5 2.5-2.5s2.5 1 4 1 2.5-1 2.5-2.5" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M12 7v2M9.5 8l1 1.5M14.5 8l-1 1.5" stroke="rgba(255,255,255,0.6)" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="smc-name">
+      <div class="smc-main">Smart Money Circle</div>
+      <div class="smc-sub">Research &amp; Insights</div>
+    </div>
+  </div>
+  <strong>India Data Center Theme Report</strong> &nbsp;—&nbsp; April 2026 &nbsp;|&nbsp; For Client Distribution &nbsp;|&nbsp; Informational Use Only
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function sw(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('t-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'market' && !window._cap) { buildCap(); window._cap = true; }
+  if (id === 'geography' && !window._geo) { buildGeo(); window._geo = true; }
+  window.scrollTo(0, 0);
+}
+
+function buildCap() {
+  const ctx = document.getElementById('capChart');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2020','2021','2022','2023','2024','2025','2026E','2027E','2028E','2030E'],
+      datasets: [{
+        label: 'Capacity (MW)',
+        data: [575,650,750,950,1133,1520,2000,2800,4000,9000],
+        backgroundColor: (c) => c.dataIndex >= 6 ? 'rgba(26,58,92,0.28)' : '#1a3a5c',
+        borderColor: '#1a3a5c',
+        borderWidth: (c) => c.dataIndex >= 6 ? 1 : 0,
+        borderRadius: 3,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => ' ' + c.parsed.y.toLocaleString() + ' MW' } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#9498a8', font: { size: 11 } } },
+        y: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { color: '#9498a8', font: { size: 11 }, callback: (v) => v >= 1000 ? (v/1000).toFixed(0)+'k' : v } }
+      }
+    }
+  });
+}
+
+function buildGeo() {
+  const ctx = document.getElementById('geoChart');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Mumbai / Navi Mumbai','Chennai','Delhi-NCR','Bengaluru','Hyderabad','Others'],
+      datasets: [{
+        label: '% of capacity',
+        data: [52,21,14,9,6,4],
+        backgroundColor: ['#1a3a5c','#2d6a4f','#c8401a','#b8860b','#5b3a87','#888780'],
+        borderWidth: 0, borderRadius: 3,
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => ' ' + c.parsed.x + '% of capacity' } } },
+      scales: {
+        x: { grid: { color: 'rgba(0,0,0,0.06)' }, ticks: { color: '#9498a8', font: { size: 11 }, callback: (v) => v + '%' }, max: 58 },
+        y: { grid: { display: false }, ticks: { color: '#4a4d5a', font: { size: 12 } } }
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
